@@ -1,0 +1,29 @@
+{
+  "name": "Project",
+  "version": "1.0.0",
+  "description": "Project description",
+  "main": "css/main.css",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [],
+  "authors": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~1.11.0",
+    "requirejs": "~2.1.11",
+    "modernizr": "~2.8.0"
+  },
+  "devDependencies": {
+    "r.js": "~2.1.11",
+    "backbone": "~1.1.2"
+  }
+}

@@ -1,0 +1,16 @@
+/* _GENERAL.SCSS */
+
+* {
+	background-repeat: no-repeat;
+	text-rendering: optimizeLegibility;
+	@include box-sizing(border-box);
+
+	&:focus {
+	    outline: none;
+	}
+}
+
+html {
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}

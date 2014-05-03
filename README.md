@@ -17,10 +17,6 @@ node build
 ```
 This starts the [RequireJS optimizer](http://requirejs.org/docs/optimization.html).
 
-## License
-
-Sass-jQuery-Requirejs is licensed MIT
-
 * * *
 
-Copyright (c) 2014 Damian Frizzi
+2014 by (Damian Frizzi)[https://twitter.com/DamianFrizzi]

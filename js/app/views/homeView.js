@@ -3,25 +3,20 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'models/appModel',
-    'views/homeView'
-], function($, _, Backbone, AppModel, HomeView) {
+    'text!templates/home.html'
+], function($, _, Backbone, HomeTemplate) {
 
     'use strict';
 
     var View = Backbone.View.extend({
-        el: '#wrapper',
-
-        model: AppModel,
+        template: _.template(HomeTemplate),
 
         initialize: function() {
             this.render();
         },
 
         render: function() {
-            new HomeView({
-                el: this.el
-            });
+            this.$el.html(this.template);
         }
     });
 

@@ -5,6 +5,7 @@ var projectPaths = {
     "jquery": ["http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min", "../vendor/jquery/dist/jquery.min"],
     "backbone": "../vendor/backbone/backbone",
     "underscore": "../vendor/underscore/underscore",
+    "text": "../vendor/requirejs-text/text"
 }
 
 require.config({
@@ -30,11 +31,12 @@ require.config({
 require([
     'backbone',
     'views/appView',
-    'routers/router'
+    'router'
 ], function(Backbone, AppView, AppRouter) {
 
     new AppRouter();
     Backbone.history.start();
 
+    new AppView();
 
 });

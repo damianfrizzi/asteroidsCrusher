@@ -20,10 +20,12 @@
   "dependencies": {
     "jquery": "~1.11.0",
     "requirejs": "~2.1.11",
-    "modernizr": "~2.8.0"
+    "modernizr": "~2.8.0",
+    "backbone": "~1.1.2",
+    "underscore": "~1.6.0",    
+    "requirejs-text": "~2.0.12"
   },
   "devDependencies": {
-    "r.js": "~2.1.11",
-    "backbone": "~1.1.2"
+    "r.js": "~2.1.11"
   }
 }

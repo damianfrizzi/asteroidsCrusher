@@ -7,16 +7,8 @@ define([
     'use strict';
 
     var Model = Backbone.Model.extend({
-        defaults: {
-            debug: true
-        },
-
         initialize: function() {
-            this.consoleShortcut();
-
-            if (this.get('debug')) {
-                log('appModel initialized');
-            }                        
+            this.consoleShortcut();                       
         },
         
         consoleShortcut: function() {

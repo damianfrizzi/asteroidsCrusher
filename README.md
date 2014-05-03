@@ -19,4 +19,4 @@ This starts the [RequireJS optimizer](http://requirejs.org/docs/optimization.htm
 
 * * *
 
-2014 by (Damian Frizzi)[https://twitter.com/DamianFrizzi]
+2014 by [Damian Frizzi](https://twitter.com/DamianFrizzi)

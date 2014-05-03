@@ -1,6 +1,7 @@
-# Sass-RequireJS-jQuery-Boilerplate
+# Frontend Boilerplate
 
-A HTML5 boilerplate including RequireJS, Sass, jQuery, Modernizr for feature detection and Bower for dependency management.
+A HTML5 boilerplate including RequireJS (along with the RequireJS-Text plugin), Backbone, Sass and jQuery.
+Modernizr is used for feature detection and Bower for dependency management.
 
 ## Requirements
 + [Sass](http://sass-lang.com/)
@@ -14,6 +15,7 @@ To start the build process simply run the following in the js directory:
 ```
 node build
 ```
+This starts the [RequireJS optimizer](http://requirejs.org/docs/optimization.html).
 
 ## License
 

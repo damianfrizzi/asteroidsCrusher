@@ -1,0 +1,11 @@
+{
+  "name": "boilerplate",
+  "version": "0.1.0",
+  "description": "frontend boilerplate",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-contrib-sass": "^0.8.1",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}

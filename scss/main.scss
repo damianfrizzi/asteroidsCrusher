@@ -1,9 +1,0 @@
- // variable for bootstrap unfortunately currently not possible: https://github.com/sass/sass/issues/49
-
-/* Set font path */
-@function twbs-font-path($path) {
-  @return "../bower_components/bootstrap-sass-official/assets/fonts/#{$path}";
-}
-
-/* Import bootstrap */
-@import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";

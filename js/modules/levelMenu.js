@@ -41,7 +41,8 @@ define(function() {
          * Level duration
          * When this time is over, the boss will appear
          */
-        LEVEL_DURATION: 60000,
+        // LEVEL_DURATION: 60000,
+        LEVEL_DURATION: 1000,
 
         /**
          * Powerups delay

@@ -88,6 +88,9 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
             this.game.SHIP_ACCELERATION = 350;
             this.game.SHIP_MAX_SPEED = 250;
 
+            /* Boss settings */
+            this.game.BOSS_MAX_SPEED = 150;            
+
             /* bullet settings */
             this.game.BULLET_SHOT_DELAY = 200;
             this.game.BULLET_SPEED = 500;
@@ -115,13 +118,13 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
 
             /* Pause game when window loses focus */
             $(window).on('mouseleave', function() {
-                _this.game.paused = true;
+                G.game.paused = true;
             }).on('mouseenter', function() {
-                _this.game.paused = false;
+                G.game.paused = false;
             });
 
             this.game.menu_background.stop();
-            this.game.game_background.fadeIn(400, true);
+            this.game.game_background.play('', 0, 1, true);
 
             /* Store game start time */
             this.game.gameStartTime = this.game.time.now;
@@ -133,11 +136,11 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
             if (!this.game.events) this.game.events = {};
 
             /* Go fullscreen on mobile devices */
-            // if (!this.game.device.desktop) {
-            //     this.game.input.onDown.add(function() {
-            //         this.game.scale.startFullScreen(false);
-            //     }, this);
-            // }       
+            if (!this.game.device.desktop) {
+                this.game.input.onDown.add(function() {
+                    this.game.scale.startFullScreen(false);
+                }, this);
+            }       
 
             /* Setup background */
             new Background(this);

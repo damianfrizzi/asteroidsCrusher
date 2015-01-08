@@ -73,10 +73,10 @@ define(function() {
                     } else {
                         /**
                          * Shield blink animation
-                         * If 60 percent of the powerup duration time has been reached, start the 
+                         * If 60 percent of the powerup duration time has been reached, start the
                          * blink animation in a 500ms interval
                          */
-                            
+
                         if (blinkTimer >= 500 && elapsedTime > (0.6 * G.game.activePowerup.duration)) {
                             blinkTimer -= 500;
 
@@ -105,7 +105,7 @@ define(function() {
                 } else if (G.game.activePowerup.name === 'bxRocket' || G.game.activePowerup.name === 'doubleBullet') {
 
                     /* bxRocket logic
-                    --------------------------------------------------------------------------------- */              
+                    --------------------------------------------------------------------------------- */
 
                     var elapsedTime = G.game.time.now - G.game.activePowerup.creationTime;
 
@@ -138,7 +138,11 @@ define(function() {
             } else {
                 /* Get a dead powerup from the pool */
                 var powerup = Phaser.Math.getRandom(G.game.powerups.children.filter(function(e) {
-                    return !e.alive;
+                    if (G.game.BOSS_SHOWN) {
+                        return !e.alive && e.name !== 'destroyAll';
+                    } else {
+                        return !e.alive;
+                    }
                 }));
 
                 /* If there aren't any powerups available, do nothing */

@@ -325,6 +325,9 @@ define(['player'], function(Player) {
         --------------------------------------------------------------------------------- */
 
         onGameOver: function() {
+            G.game.game_background.stop();
+            G.game.game_over.play('', 0, 1, false);
+
             // hide other hud elements
             _this.toggleHudElements(0);
             Modernizr.touch && $('#joystick-wrapper').hide();
@@ -406,6 +409,9 @@ define(['player'], function(Player) {
         --------------------------------------------------------------------------------- */
 
         onGameCompleted: function() {
+            G.game.game_background.stop();
+            G.game.game_victory.play('', 0, 1, false);
+
             var levelsCompleted = JSON.parse(localStorage.getItem('levelsCompleted')) || [];
 
             if ($.inArray(G.game.LEVEL_INDEX, levelsCompleted) === -1) {
@@ -538,6 +544,9 @@ define(['player'], function(Player) {
 
             // reset game start time
             G.game.gameStartTime = G.game.time.now;
+
+            G.game.game_over.stop();
+            G.game.game_background.play('', 0, 1, true);
         },
 
         /* toggleHudElements

@@ -8,7 +8,7 @@ module.exports = function(grunt) {
                     name: 'app',
                     baseUrl: 'js/',
                     mainConfigFile: 'js/app.js',
-                    out: 'js/built.js',
+                    out: 'dist/built.js',
                     preserveLicenseComments: false,
                     findNestedDependencies: true,
                     removeCombined: true
@@ -19,8 +19,19 @@ module.exports = function(grunt) {
         cssmin: {
             target: {
                 files: {
-                    'css/main.min.css': ['css/main.css']
+                    'dist/main.min.css': ['css/main.css']
                 }
+            }
+        },
+
+        imagemin: {
+            dynamic: {
+                files: [{
+                    expand: true,
+                    cwd: 'images/', // Src matches are relative to this path
+                    src: ['**/*.{png,jpg,gif}'], // Actual patterns to match
+                    dest: 'dist/images/' // Destination path prefix
+                }]
             }
         }
     });
@@ -28,7 +39,8 @@ module.exports = function(grunt) {
     /* Load plugins */
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
 
     /* What happens when we "grunt" the terminal */
-    grunt.registerTask('default', ['requirejs', 'cssmin']);
+    grunt.registerTask('default', ['requirejs', 'cssmin', 'imagemin']);
 };

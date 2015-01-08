@@ -51,9 +51,11 @@ define(function() {
                     G.game.ship.body.acceleration.x = Math.cos(G.game.ship.rotation) * G.game.SHIP_ACCELERATION;
                     G.game.ship.body.acceleration.y = Math.sin(G.game.ship.rotation) * G.game.SHIP_ACCELERATION;
                     G.game.ship.frame = 1;
+                    !G.game.shipThruster.isPlaying && G.game.shipThruster.play('', 0, 1, false);
                 } else {
                     G.game.ship.body.acceleration.setTo(0, 0);
                     G.game.ship.frame = 0;
+                    G.game.shipThruster.stop();
                 }
             }
 
@@ -117,7 +119,7 @@ define(function() {
             G.game.ship.health = G.game.NUMBER_OF_LIFES;
 
             G.game.physics.enable(G.game.ship, Phaser.Physics.ARCADE);
-            G.game.ship.body.maxVelocity.setTo(G.game.SHIP_MAX_SPEED, G.game.SHIP_MAX_SPEED); // x, y
+            G.game.ship.body.maxVelocity.setTo(G.game.SHIP_MAX_SPEED, G.game.SHIP_MAX_SPEED);
 
             G.game.ship.events.onRevived.add(function(ship) {
                 ship.position.setTo(G.game.width / 2, G.game.height / 2);
@@ -190,7 +192,7 @@ define(function() {
             shot.body.velocity.y = Math.sin(shot.rotation) * speed;
 
             /* Play audio */
-            G.game.gunshot.play();
+            G.game.gunshot.play('', 0, 0.5);
         }
 
     };

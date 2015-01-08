@@ -110,11 +110,19 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
         /* create
         --------------------------------------------------------------------------------- */
 
-        create: function() {          
+        create: function() {
+            var G = this;
+
+            /* Pause game when window loses focus */
+            $(window).on('mouseleave', function() {
+                _this.game.paused = true;
+            }).on('mouseenter', function() {
+                _this.game.paused = false;
+            });
 
             this.game.menu_background.stop();
             this.game.game_background.fadeIn(400, true);
-                
+
             /* Store game start time */
             this.game.gameStartTime = this.game.time.now;
 

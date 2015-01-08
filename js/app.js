@@ -10,6 +10,7 @@ Configuration and initialisation happen here
 
     require.config({
         paths: {
+            /* Modules */
             'game': 'modules/game',
             'boot': 'modules/boot',
             'mainMenu': 'modules/mainMenu',
@@ -20,6 +21,16 @@ Configuration and initialisation happen here
             'player': 'modules/player',
             'enemies': 'modules/enemies',
             'powerups': 'modules/powerups',
+
+            /* Levels */
+            'level1': 'levels/level1',
+            'level2': 'levels/level2',
+            'level3': 'levels/level3',
+            'level4': 'levels/level4',
+            'level5': 'levels/level5',
+            'level6': 'levels/level6',
+
+            /* Vendor */
             'screen_shake': 'vendor/phaser.screen_shake',
             'joystick': 'vendor/touchscreen_joystick',
             'jquery': '../bower_components/jquery/dist/jquery',
@@ -34,10 +45,10 @@ Configuration and initialisation happen here
             'screen_shake': {
                 deps: ['phaser']
             }
-        },
+        }
 
         /* Remove on production to guarantee caching */
-        urlArgs: 'bust=' + (new Date()).getTime()
+        // urlArgs: 'bust=' + (new Date()).getTime()
     });
 
     require(['jquery', 'Modernizr'], function($) {

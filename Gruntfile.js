@@ -43,4 +43,6 @@ module.exports = function(grunt) {
 
     /* What happens when we "grunt" the terminal */
     grunt.registerTask('default', ['requirejs', 'cssmin', 'imagemin']);
+    grunt.registerTask('js', ['requirejs']);
+    grunt.registerTask('img', ['imagemin']);
 };

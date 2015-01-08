@@ -32,73 +32,27 @@ define(function() {
 
             /* Audio
             --------------------------------------------------------------------------------- */
-            this.game.load.audio('ship_thruster', ['audio/ship_thruster.mp3', 'audio/ship_thruster.ogg', 'audio/ship_thruster.m4a']);
-            this.game.load.audio('gunshot', ['audio/gunshot.mp3', 'audio/gunshot.ogg', 'audio/gunshot.m4a']);
-            this.game.load.audio('item_collect', ['audio/item_collect.mp3', 'audio/item_collect.ogg', 'audio/item_collect.m4a']);
-            this.game.load.audio('explosion', ['audio/explosion.mp3', 'audio/explosion.ogg', 'audio/explosion.m4a']);
             this.game.load.audio('menu_background', ['audio/menu_background.mp3', 'audio/menu_background.ogg', 'audio/menu_background.m4a']);
-            this.game.load.audio('game_background', ['audio/game_background.mp3', 'audio/game_background.ogg', 'audio/game_background.m4a']);
-            this.game.load.audio('game_over', ['audio/game_over.mp3', 'audio/game_over.ogg', 'audio/game_over.m4a']);
-            this.game.load.audio('game_victory', ['audio/game_victory.mp3', 'audio/game_victory.ogg', 'audio/game_victory.m4a']);
 
             /* Graphics
             --------------------------------------------------------------------------------- */
 
             /* Background */
-            this.game.load.image('background1', 'dist/images/backgrounds/background_01_parallax_01.png');
-            this.game.load.image('background2', 'dist/images/backgrounds/background_02_parallax_01.png');
-            this.game.load.image('background3', 'dist/images/backgrounds/background_03_parallax_01.png');
             this.game.load.image('background_menu', 'dist/images/backgrounds/background_menu.jpg');
-            this.game.load.image('background1_overlay', 'dist/images/backgrounds/background_01_parallax_02.png');
-            this.game.load.image('background1_planet_1', 'dist/images/backgrounds/background_01_parallax_03.png');
-            this.game.load.image('background1_planet_2', 'dist/images/backgrounds/background_01_parallax_04.png');
-            this.game.load.image('background2_overlay', 'dist/images/backgrounds/background_02_parallax_02.png');
-            this.game.load.image('background2_planet_1', 'dist/images/backgrounds/background_02_parallax_03.png');
-            this.game.load.image('background2_planet_2', 'dist/images/backgrounds/background_02_parallax_04.png');
-            this.game.load.image('background3_overlay', 'dist/images/backgrounds/background_03_parallax_02.png');
-            this.game.load.image('background3_planet_1', 'dist/images/backgrounds/background_03_parallax_03.png');
 
-            /* Weapons */
-            this.game.load.image('bullet', 'dist/images/weapons/bullet.png');
-            this.game.load.image('bullet_double', 'dist/images/weapons/bullet_double.png');
-            this.game.load.image('double_bullet_single', 'dist/images/weapons/double_bullet_single.png');
-            this.game.load.image('bx_rocket', 'dist/images/weapons/bx_rocket.png');
-            this.game.load.image('bx_rocket_single', 'dist/images/weapons/bx_rocket_single.png');
-
-            /* Powerups */
-            this.game.load.image('shield', 'dist/images/powerups/shield.png');
-            this.game.load.image('shield_single', 'dist/images/powerups/shield_single.png');
-            this.game.load.spritesheet('powerups', 'dist/images/powerups/powerups.png', 100, 100);
-            this.game.load.spritesheet('powerup_life', 'dist/images/powerups/points_powerup_lifes_powerup_indicator.png', 124, 124);
-
-            /* Enemies */
-            this.game.load.image('enemy_unit', 'dist/images/enemies/enemy_unit.png');
-            this.game.load.spritesheet('asteorid_1', 'dist/images/enemies/asteroid_1.png', 100, 44);
-            this.game.load.spritesheet('asteorid_2', 'dist/images/enemies/asteroid_2.png', 170, 140);
-            this.game.load.spritesheet('asteorid_3', 'dist/images/enemies/asteroid_3.png', 90, 77);
+            /* Level menu */
+            this.game.load.spritesheet('select_frame', 'dist/images/gui/mission_select_frame.png', 100, 100);
+            this.game.load.spritesheet('select_number', 'dist/images/gui/mission_select_numbers.png', 50, 39);
+            this.game.load.image('locked', 'dist/images/gui/mission_select_locked.png');
 
             /* HUD */
-            this.game.load.image('points_powerup_lifes', 'dist/images/hud/points_powerup_lifes.png');
-            this.game.load.image('life', 'dist/images/hud/life_indicator.png', 24, 24);
-            this.game.load.image('window', 'dist/images/hud/window_whole.png');
-            this.game.load.image('control_field', 'dist/images/hud/control_field.png');
-            this.game.load.image('control_fuel_icon', 'dist/images/hud/control_fuel_icon.png');
-            this.game.load.image('control_stick', 'dist/images/hud/control_stick.png');
-            this.game.load.image('arrow_up', 'dist/images/hud/button_arrow_up.png');
-            this.game.load.image('arrow_right', 'dist/images/hud/button_arrow_right.png');
-            this.game.load.image('arrow_down', 'dist/images/hud/button_arrow_down.png');
-            this.game.load.image('arrow_left', 'dist/images/hud/button_arrow_left.png');
-            this.game.load.image('button', 'dist/images/hud/button.png');
             this.game.load.image('main_button', 'dist/images/hud/main_button.png');
-            this.game.load.spritesheet('ship_normal', 'dist/images/spaceships/spaceship_normal.png', 90, 76);
-            this.game.load.spritesheet('ship_multiple_guns', 'dist/images/spaceships/spaceship_normal_multiple_gun.png', 90, 76);
+            this.game.load.image('window', 'dist/images/hud/window_whole.png');
+
+            /* Gui */
             this.game.load.spritesheet('stars', 'dist/images/gui/mission_select_stars.png', 65, 20);
             this.game.load.spritesheet('stars_big', 'dist/images/gui/mission_select_stars_big.png', 115, 35);
-            this.game.load.spritesheet('explosion', 'dist/images/misc/explosion.png', 90, 90);
-            this.game.load.spritesheet('pause', 'dist/images/hud/pause_button.png', 142, 157);
-            this.game.load.spritesheet('shooting_button', 'dist/images/hud/shooting_button.png', 190, 199);
-            this.game.load.spritesheet('control_fuel', 'dist/images/hud/control_fuel_indicator.png', 99, 99);
-            this.game.load.spritesheet('summary_icons', 'dist/images/hud/summary_icons.png', 60, 60);
+
         },
 
         /* create
@@ -113,11 +67,14 @@ define(function() {
             this.game.shipThruster = this.game.add.audio('ship_thruster');
             this.game.itemCollect = this.game.add.audio('item_collect');
             this.game.gunshot = this.game.add.audio('gunshot');
-            this.game.explosion = this.game.add.audio('explosion');               
-            this.game.menu_background = this.game.add.audio('menu_background');               
-            this.game.game_background = this.game.add.audio('game_background');               
-            this.game.game_over = this.game.add.audio('game_over');               
-            this.game.game_victory = this.game.add.audio('game_victory');               
+            this.game.explosion = this.game.add.audio('explosion');
+            this.game.menu_background = this.game.add.audio('menu_background');
+            this.game.game_background = this.game.add.audio('game_background');
+            this.game.game_over = this.game.add.audio('game_over');
+            this.game.game_victory = this.game.add.audio('game_victory');
+
+            /* Settings */
+            this.game.GAME_ASSETS_LOADED = false;
 
             /**
              * Reset Game
@@ -126,7 +83,7 @@ define(function() {
 
             this.game.resetGame = function() {
                 var _this = this,
-                    level = JSON.parse(localStorage.getItem('activeLevel'));
+                    level = _this.level;
 
                 this.ENEMY_DELAY = level.ENEMY_DELAY;
                 this.POWERUPS_DELAY = level.POWERUPS_DELAY;
@@ -162,7 +119,7 @@ define(function() {
                 this.showExplosion(this.boss.x, this.boss.y);
                 this.boss.body.collideWorldBounds = false;
                 var randomPos = this.getRandomStartingPosition();
-                this.boss.reset(randomPos.x, randomPos.y);                
+                this.boss.reset(randomPos.x, randomPos.y);
                 this.boss.kill();
                 this.bossBulletsPool.forEachAlive(function(bullet) {
                     bullet.kill();
@@ -180,6 +137,33 @@ define(function() {
                 this.fuelCounter = 0;
                 this.controlOverlay.y = this.height - 170;
             };
+
+            this.game.showDamage = function(x, y) {
+                /* Play audio */
+                this.explosion.play();
+
+                var damage = this.damageGroup.getFirstDead();
+
+                /* If there aren't any available, create a new one */
+                if (damage === null) {
+                    damage = this.add.sprite(0, 0, 'damage');
+                    damage.anchor.setTo(0.5, 0.5);
+
+                    /* add an animation for the damage that kills the sprite when the animation is complete */
+                    var animation = damage.animations.add('boom', [0, 1, 2, 3, 4, 5, 6, 7, 8], 30, false);
+                    animation.killOnComplete = true;
+
+                    this.damageGroup.add(damage);
+                }
+
+                damage.revive();
+                damage.x = x;
+                damage.y = y;
+                damage.angle = this.rnd.integerInRange(0, 360);
+                damage.animations.play('boom');
+
+                return damage;                
+            }
 
             /**
              * Show explosion
@@ -217,22 +201,18 @@ define(function() {
             this.game.getRandomStartingPosition = function() {
                 var posX, posY;
 
-                if (this.getRandomInt(0, 10) < 5) {
-                    posX = this.getRandomInt(0, 10) < 5 ? -150 : this.width + 150;
-                    posY = this.getRandomInt(0, this.height);
+                if (this.rnd.integerInRange(0, 10) < 5) {
+                    posX = this.rnd.integerInRange(0, 10) < 5 ? -110 : this.width + 110;
+                    posY = this.rnd.integerInRange(0, this.height);
                 } else {
-                    posX = this.getRandomInt(0, this.width);
-                    posY = this.getRandomInt(0, 10) < 5 ? -150 : this.height + 150;
+                    posX = this.rnd.integerInRange(0, this.width);
+                    posY = this.rnd.integerInRange(0, 10) < 5 ? -110 : this.height + 110;
                 }
 
                 return {
                     x: posX,
                     y: posY
                 };
-            };
-
-            this.game.getRandomInt = function(min, max) {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
             };
 
             this.game.secondsToString = function(seconds) {

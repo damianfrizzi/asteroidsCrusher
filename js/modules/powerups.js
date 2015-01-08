@@ -158,7 +158,7 @@ define(function() {
             }
 
             /* Let the powerup move in the direction of the current ship position */
-            G.game.physics.arcade.moveToObject(powerup, G.game.ship, G.game.getRandomInt(G.game.ENEMY_MIN_SPEED, G.game.ENEMY_MAX_SPEED));
+            G.game.physics.arcade.moveToObject(powerup, G.game.ship, G.game.rnd.integerInRange(G.game.ENEMY_MIN_SPEED, G.game.ENEMY_MAX_SPEED));
         },
 
         /* powerupHit

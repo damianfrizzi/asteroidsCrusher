@@ -22,7 +22,9 @@ define(['hud'], function(Hud) {
         --------------------------------------------------------------------------------- */
 
         init: function() {
+            /* Explosion & damage pool */
             G.game.explosionGroup = G.game.add.group();
+            G.game.damageGroup = G.game.add.group();
 
             _this.createRandomEnemy();
             _this.createBoss();
@@ -51,6 +53,9 @@ define(['hud'], function(Hud) {
                 G.game.boss.revive(8);
                 G.game.boss.bringToTop();
 
+                /* Update possible score */
+                G.game.POSSIBLE_SCORE += 500;
+
                 /* Kill all living enemies */
                 G.game.enemies.forEachAlive(function(enemy) {
                     G.game.showExplosion(enemy.x, enemy.y);
@@ -71,12 +76,12 @@ define(['hud'], function(Hud) {
                 var outX = (G.game.boss.x - (G.game.boss.width / 2) < 0 || G.game.boss.x + (G.game.boss.width / 2) > G.game.width),
                     outY = (G.game.boss.y - (G.game.boss.height / 2) < 0 || G.game.boss.y + (G.game.boss.height / 2) > G.game.height);
 
-                if(outX || outY) {
+                if (outX || outY) {
                     /**
                      * Boss is outside of stage
                      * Move boss towards the ship
                      */
-                    G.game.physics.arcade.moveToObject(G.game.boss, G.game.ship, G.game.getRandomInt(G.game.ENEMY_MIN_SPEED, G.game.ENEMY_MAX_SPEED));
+                    G.game.physics.arcade.moveToObject(G.game.boss, G.game.ship, G.game.rnd.integerInRange(G.game.ENEMY_MIN_SPEED, G.game.ENEMY_MAX_SPEED));
                 } else if (!G.game.boss.body.collideWorldBounds) {
                     /**
                      * Boss enters stage
@@ -102,9 +107,9 @@ define(['hud'], function(Hud) {
                         G.game.boss.body.gravity.x = -170;
                     }
 
-                    if(G.game.boss.body.velocity.x < G.game.BOSS_MAX_SPEED) {
+                    if (G.game.boss.body.velocity.x < G.game.BOSS_MAX_SPEED) {
                         G.game.boss.body.velocity.x += 0.3;
-                    } else if(G.game.boss.body.velocity.y < G.game.BOSS_MAX_SPEED) {
+                    } else if (G.game.boss.body.velocity.y < G.game.BOSS_MAX_SPEED) {
                         G.game.boss.body.velocity.y += 0.1;
                     }
                 }
@@ -140,7 +145,7 @@ define(['hud'], function(Hud) {
                 /* Revive the enemy */
                 enemy.revive(G.game.enemiesObjects[enemy.index].lifes);
 
-                G.game.physics.arcade.moveToObject(enemy, G.game.ship, G.game.getRandomInt(G.game.ENEMY_MIN_SPEED, G.game.ENEMY_MAX_SPEED));
+                G.game.physics.arcade.moveToObject(enemy, G.game.ship, G.game.rnd.integerInRange(G.game.ENEMY_MIN_SPEED, G.game.ENEMY_MAX_SPEED));
             }
         },
 
@@ -152,7 +157,7 @@ define(['hud'], function(Hud) {
 
             for (var i = 0; i < G.game.NUMBER_OF_ENEMIES; i++) {
                 var randomPos = G.game.getRandomStartingPosition(),
-                    randomEnemyIndex = G.game.getRandomInt(0, 50) > 45 ? 2 : G.game.getRandomInt(0, 1),
+                    randomEnemyIndex = G.game.rnd.integerInRange(0, 50) > 45 ? 2 : G.game.rnd.integerInRange(0, 1),
                     enemyObj = G.game.enemiesObjects[randomEnemyIndex],
                     enemy = G.game.enemies.create(randomPos.x, randomPos.y, '' + enemyObj.name + '');
 
@@ -200,11 +205,6 @@ define(['hud'], function(Hud) {
             G.game.boss.score = 500;
             G.game.boss.kill();
 
-            /* Update possible score once boss appears */
-            G.game.boss.events.onEnterBounds.add(function() {
-                G.game.POSSIBLE_SCORE += 500
-            });
-
             G.game.bossBulletsPool = G.game.add.group();
 
             for (var i = 0; i < 20; i++) {
@@ -237,7 +237,7 @@ define(['hud'], function(Hud) {
             shot.outOfBoundsKill = true;
 
             shot.rotation = G.game.physics.arcade.moveToObject(shot, G.game.ship, 400);
-        },        
+        },
 
         /* shotHitsShip
         --------------------------------------------------------------------------------- */
@@ -267,11 +267,12 @@ define(['hud'], function(Hud) {
             enemy.health -= shot.force;
 
             if (enemy.health <= 0) {
-                G.game.showExplosion(enemy.x, enemy.y);
+                G.game.showExplosion(shot.x, shot.y);
                 enemy.kill();
 
                 G.game.events.onUpdateScore.dispatch(enemy.score);
             } else {
+                G.game.showDamage(shot.x, shot.y);
                 enemy.frame += 1;
             }
         },

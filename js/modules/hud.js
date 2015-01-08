@@ -166,6 +166,7 @@ define(['player'], function(Player) {
                 h = G.game.height / 2 - 357;
 
             // when the paus button is pressed, we pause the game
+            G.game.isPaused = true;
             G.game.paused = true;
 
             // hide score menu
@@ -261,8 +262,10 @@ define(['player'], function(Player) {
                     G.game.controls.alpha = 1;
                     G.game.shootingButton.alpha = 1;
                     G.game.pauseButton.frame = 0;
+                    G.game.isPaused = false;
                     G.game.paused = false;
                 } else if (event.x > levelsBtnX1 && event.x < levelsBtnX2 && event.y > levelsBtnY1 && event.y < levelsBtnY2) {
+                    G.game.isPaused = false;
                     G.game.paused = false;
                     G.game.state.start('levelMenu');
                 } else if (event.x > restartBtnX1 && event.x < restartBtnX2 && event.y > restartBtnY1 && event.y < restartBtnY2) {
@@ -447,30 +450,69 @@ define(['player'], function(Player) {
                 starsFrame = 2;
             }
 
-            // store level score
-            var levelIndex = JSON.parse(localStorage.getItem('activeLevel')).LEVEL_INDEX,
-                levelsScore = JSON.parse(localStorage.getItem('levelScore')) || [],
+            /**
+             * Store level score
+             *
+             */
+
+            var levels = JSON.parse(localStorage.getItem('levels')) || [],
                 exists = false;
 
-            levelsScore = $.each(levelsScore, function(index, levelScore) {
-                if (levelScore.LEVEL_INDEX === levelIndex) {
-                    levelScore.STARS_FRAME = starsFrame < levelScore.STARS_FRAME ? starsFrame : levelScore.STARS_FRAME;
-                    levelScore.SCORE = levelScore.SCORE < G.game.SCORE ? G.game.SCORE : levelScore.SCORE;
+            /**
+             * Update stored level
+             * The current level is already stored, we need to update it
+             */
+
+            levels = $.each(levels, function(index, level) {
+                if (level.index === G.game.level.LEVEL_INDEX) {
+                    level.starsFrame = starsFrame < level.starsFrame ? starsFrame : level.starsFrame;
+                    level.score = level.score < G.game.SCORE ? G.game.SCORE : level.score;
                     exists = true;
                 }
 
-                return levelScore;
+                return level;
             });
 
+            /**
+             * Store new Level
+             * The current level is not yet stored
+             */
+
             if (!exists) {
-                levelsScore.push({
-                    'LEVEL_INDEX': levelIndex,
-                    'STARS_FRAME': starsFrame,
-                    'SCORE': G.game.SCORE
+                levels.push({
+                    index: G.game.level.LEVEL_INDEX,
+                    score: G.game.SCORE,
+                    starsFrame: starsFrame
                 });
             }
 
-            localStorage.setItem('levelScore', JSON.stringify(levelsScore));
+            localStorage.setItem('levels', JSON.stringify(levels));
+
+
+            // // store level score
+            // var levelIndex = JSON.parse(localStorage.getItem('activeLevel')).LEVEL_INDEX,
+            //     levelsScore = JSON.parse(localStorage.getItem('levelScore')) || [],
+            //     exists = false;
+
+            // levelsScore = $.each(levelsScore, function(index, levelScore) {
+            //     if (levelScore.LEVEL_INDEX === levelIndex) {
+            //         levelScore.STARS_FRAME = starsFrame < levelScore.STARS_FRAME ? starsFrame : levelScore.STARS_FRAME;
+            //         levelScore.SCORE = levelScore.SCORE < G.game.SCORE ? G.game.SCORE : levelScore.SCORE;
+            //         exists = true;
+            //     }
+
+            //     return levelScore;
+            // });
+
+            // if (!exists) {
+            //     levelsScore.push({
+            //         'LEVEL_INDEX': levelIndex,
+            //         'STARS_FRAME': starsFrame,
+            //         'SCORE': G.game.SCORE
+            //     });
+            // }
+
+            // localStorage.setItem('levelScore', JSON.stringify(levelsScore));
 
             // display stars
             G.game.gameCompletedMenu.create(580, 112, 'stars_big', starsFrame);
@@ -550,7 +592,7 @@ define(['player'], function(Player) {
         },
 
         /* toggleHudElements
-        --------------------------------------------------------------------------------- */              
+        --------------------------------------------------------------------------------- */
 
         toggleHudElements: function(alpha) {
             G.game.scoreMenu.alpha = alpha;

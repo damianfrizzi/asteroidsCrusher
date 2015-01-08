@@ -25,10 +25,10 @@ module.exports = function(grunt) {
         }
     });
 
-    // Load plugins
+    /* Load plugins */
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-    // What happens when we "grunt" the terminal
+    /* What happens when we "grunt" the terminal */
     grunt.registerTask('default', ['requirejs', 'cssmin']);
 };

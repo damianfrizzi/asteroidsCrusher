@@ -21,6 +21,7 @@ define(function() {
         --------------------------------------------------------------------------------- */
 
         init: function() {
+
             // create powerups
             G.game.powerups = G.game.add.group();
 
@@ -159,6 +160,10 @@ define(function() {
         --------------------------------------------------------------------------------- */
 
         powerupHit: function(ship, powerup) {
+                
+            /* Play audio */
+            G.game.itemCollect.play();
+
             if (powerup.name === 'life') {
                 /* life powerup */
                 if (G.game.ship.health >= G.game.MAX_LIFES) return;

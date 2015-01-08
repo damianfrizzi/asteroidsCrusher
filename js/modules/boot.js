@@ -29,6 +29,19 @@ define(function() {
         --------------------------------------------------------------------------------- */
 
         preload: function() {
+
+            /* Audio
+            --------------------------------------------------------------------------------- */
+            this.game.load.audio('gunshot', ['audio/gunshot.mp3', 'audio/gunshot.ogg', 'audio/gunshot.m4a']);
+            this.game.load.audio('item_collect', ['audio/item_collect.mp3', 'audio/item_collect.ogg', 'audio/item_collect.m4a']);
+            this.game.load.audio('explosion', ['audio/explosion.mp3', 'audio/explosion.ogg', 'audio/explosion.m4a']);
+            this.game.load.audio('menu_background', ['audio/menu_background.mp3', 'audio/menu_background.ogg', 'audio/menu_background.m4a']);
+            this.game.load.audio('game_background', ['audio/game_background.mp3', 'audio/game_background.ogg', 'audio/game_background.m4a']);
+
+            /* Graphics
+            --------------------------------------------------------------------------------- */
+
+            /* Background */
             this.game.load.image('background1', 'images/backgrounds/background_01_parallax_01.png');
             this.game.load.image('background2', 'images/backgrounds/background_02_parallax_01.png');
             this.game.load.image('background3', 'images/backgrounds/background_03_parallax_01.png');
@@ -41,15 +54,28 @@ define(function() {
             this.game.load.image('background2_planet_2', 'images/backgrounds/background_02_parallax_04.png');
             this.game.load.image('background3_overlay', 'images/backgrounds/background_03_parallax_02.png');
             this.game.load.image('background3_planet_1', 'images/backgrounds/background_03_parallax_03.png');
+
+            /* Weapons */
+            this.game.load.image('bullet', 'images/weapons/bullet.png');
+            this.game.load.image('bullet_double', 'images/weapons/bullet_double.png');
+            this.game.load.image('double_bullet_single', 'images/weapons/double_bullet_single.png');
+            this.game.load.image('bx_rocket', 'images/weapons/bx_rocket.png');
+            this.game.load.image('bx_rocket_single', 'images/weapons/bx_rocket_single.png');
+
+            /* Powerups */
+            this.game.load.image('shield', 'images/powerups/shield.png');
+            this.game.load.image('shield_single', 'images/powerups/shield_single.png');
+            this.game.load.spritesheet('powerups', 'images/powerups/powerups.png', 100, 100);
+            this.game.load.spritesheet('powerup_life', 'images/powerups/points_powerup_lifes_powerup_indicator.png', 124, 124);
+
+            /* Enemies */
+            this.game.load.image('enemy_unit', 'images/enemies/enemy_unit.png');
+            this.game.load.spritesheet('asteorid_1', 'images/enemies/asteroid_1.png', 100, 44);
+            this.game.load.spritesheet('asteorid_2', 'images/enemies/asteroid_2.png', 170, 140);
+            this.game.load.spritesheet('asteorid_3', 'images/enemies/asteroid_3.png', 90, 77);
+
+            /* HUD */
             this.game.load.image('points_powerup_lifes', 'images/hud/points_powerup_lifes.png');
-            this.game.load.image('enemy_unit', 'images/spaceships/enemy_unit.png');
-            this.game.load.image('bullet', 'images/spaceships/bullet.png');
-            this.game.load.image('bullet_double', 'images/spaceships/bullet_double.png');
-            this.game.load.image('double_bullet_single', 'images/misc/double_bullet_single.png');
-            this.game.load.image('bx_rocket', 'images/spaceships/bx_rocket.png');
-            this.game.load.image('bx_rocket_single', 'images/spaceships/bx_rocket_single.png');
-            this.game.load.image('shield', 'images/misc/shield.png');
-            this.game.load.image('shield_single', 'images/misc/shield_single.png');
             this.game.load.image('life', 'images/hud/life_indicator.png', 24, 24);
             this.game.load.image('window', 'images/hud/window_whole.png');
             this.game.load.image('control_field', 'images/hud/control_field.png');
@@ -66,11 +92,6 @@ define(function() {
             this.game.load.spritesheet('stars', 'images/gui/mission_select_stars.png', 65, 20);
             this.game.load.spritesheet('stars_big', 'images/gui/mission_select_stars_big.png', 115, 35);
             this.game.load.spritesheet('explosion', 'images/misc/explosion.png', 90, 90);
-            this.game.load.spritesheet('asteorid_1', 'images/asteroids/asteroid_1.png', 100, 44);
-            this.game.load.spritesheet('asteorid_2', 'images/asteroids/asteroid_2.png', 170, 140);
-            this.game.load.spritesheet('asteorid_3', 'images/asteroids/asteroid_3.png', 90, 77);
-            this.game.load.spritesheet('powerups', 'images/misc/powerups.png', 100, 100);
-            this.game.load.spritesheet('powerup_life', 'images/hud/points_powerup_lifes_powerup_indicator.png', 124, 124);
             this.game.load.spritesheet('pause', 'images/hud/pause_button.png', 142, 157);
             this.game.load.spritesheet('shooting_button', 'images/hud/shooting_button.png', 190, 199);
             this.game.load.spritesheet('control_fuel', 'images/hud/control_fuel_indicator.png', 99, 99);
@@ -83,6 +104,14 @@ define(function() {
         create: function() {
             /* Register screenShake plugin */
             this.game.plugins.screenShake = this.game.plugins.add(Phaser.Plugin.ScreenShake);
+
+            /* Audio */
+
+            this.game.itemCollect = this.game.add.audio('item_collect');
+            this.game.gunshot = this.game.add.audio('gunshot');
+            this.game.explosion = this.game.add.audio('explosion');               
+            this.game.menu_background = this.game.add.audio('menu_background');               
+            this.game.game_background = this.game.add.audio('game_background');               
 
             /**
              * Reset Game
@@ -149,6 +178,9 @@ define(function() {
              */
 
             this.game.showExplosion = function(x, y) {
+                /* Play audio */
+                this.explosion.play();
+
                 var explosion = this.explosionGroup.getFirstDead();
 
                 /* If there aren't any available, create a new one */

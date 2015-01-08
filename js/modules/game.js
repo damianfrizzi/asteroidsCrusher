@@ -15,8 +15,8 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
     Game.prototype = {
 
         /* init
-        --------------------------------------------------------------------------------- */              
-            
+        --------------------------------------------------------------------------------- */
+
         init: function() {
             /* Level specific properties are set in levelMenu.js */
             $.extend(this.game, this.game.options);
@@ -108,9 +108,13 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
         },
 
         /* create
-        --------------------------------------------------------------------------------- */              
-            
-        create: function() {
+        --------------------------------------------------------------------------------- */
+
+        create: function() {          
+
+            this.game.menu_background.stop();
+            this.game.game_background.fadeIn(400, true);
+                
             /* Store game start time */
             this.game.gameStartTime = this.game.time.now;
 
@@ -125,7 +129,7 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
             //     this.game.input.onDown.add(function() {
             //         this.game.scale.startFullScreen(false);
             //     }, this);
-            // }
+            // }       
 
             /* Setup background */
             new Background(this);
@@ -158,7 +162,7 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
         },
 
         /* update
-        --------------------------------------------------------------------------------- */              
+        --------------------------------------------------------------------------------- */
 
         update: function() {
             /* If difficulty change time has been reached, increase difficulty */

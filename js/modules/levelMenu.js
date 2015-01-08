@@ -166,11 +166,11 @@ define(function() {
         create: function() {
             $(document).off('update');
 
-            /* Create levelMenu
-            --------------------------------------------------------------------------------- */
+            this.game.game_background.stop();
+            !this.game.menu_background.isPlaying && this.game.menu_background.play('', 0, 1, true);
 
+            /* Create levelMenu */
             this.game.add.image(0, 0, 'background_menu');
-
             this.game.levelMenu = this.game.add.group();
 
             /* Calculate menu position */

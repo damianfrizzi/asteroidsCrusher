@@ -18,8 +18,8 @@ define(function() {
     Player.prototype = {
 
         /* init
-        --------------------------------------------------------------------------------- */              
-            
+        --------------------------------------------------------------------------------- */
+
         init: function() {
             _this.setupBullets();
             _this.setupDoubleBullets();
@@ -30,7 +30,7 @@ define(function() {
         },
 
         /* update
-        --------------------------------------------------------------------------------- */                
+        --------------------------------------------------------------------------------- */
 
         update: function() {
             if (G.game.ship.x > G.game.width) G.game.ship.x = 0;
@@ -188,6 +188,9 @@ define(function() {
             /* Shoot it in the right direction */
             shot.body.velocity.x = Math.cos(shot.rotation) * speed;
             shot.body.velocity.y = Math.sin(shot.rotation) * speed;
+
+            /* Play audio */
+            G.game.gunshot.play();
         }
 
     };

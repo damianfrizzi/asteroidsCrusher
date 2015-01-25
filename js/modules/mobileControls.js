@@ -9,7 +9,7 @@ define(['joystick'], function(joystick) {
     var G, isMoving = false,
         interval,
         randomBg, MobileControls = function(obj) {
-            G = obj;
+            G = obj.game;
 
             this.init();
         };
@@ -34,23 +34,23 @@ define(['joystick'], function(joystick) {
             var joystick = new SQUARIFIC.framework.TouchControl(document.getElementById('joystick'), settings);
 
             joystick.on('joystickMove', function(data) {
-                var acceleration = data.distance > 50 ? G.game.SHIP_ACCELERATION : data.distance;
+                var acceleration = data.distance > 50 ? G.SHIP_ACCELERATION : data.distance;
                 clearTimeout(interval);
                 isMoving = true;
-                G.game.ship.angle = data.angle;
-                G.game.ship.body.acceleration.x = Math.cos(G.game.ship.rotation) * acceleration;
-                G.game.ship.body.acceleration.y = Math.sin(G.game.ship.rotation) * acceleration;
+                G.ship.angle = data.angle;
+                G.ship.body.acceleration.x = Math.cos(G.ship.rotation) * acceleration;
+                G.ship.body.acceleration.y = Math.sin(G.ship.rotation) * acceleration;
 
                 if (data.distance > 50) {
-                    G.game.ship.frame = 1;
+                    G.ship.frame = 1;
                 }
             });
 
             setInterval(function() {
                 if (isMoving) {
                     interval = setTimeout(function() {
-                        G.game.ship.body.acceleration.setTo(0, 0);
-                        G.game.ship.frame = 0;
+                        G.ship.body.acceleration.setTo(0, 0);
+                        G.ship.frame = 0;
                         isMoving = false;
                     }, 100);
                 }

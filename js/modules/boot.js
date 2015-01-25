@@ -33,6 +33,7 @@ define(function() {
             /* Audio
             --------------------------------------------------------------------------------- */
             this.game.load.audio('menu_background', ['audio/menu_background.mp3', 'audio/menu_background.ogg', 'audio/menu_background.m4a']);
+            this.game.load.audio('button', ['audio/button.mp3', 'audio/button.ogg', 'audio/button.m4a']);
 
             /* Graphics
             --------------------------------------------------------------------------------- */
@@ -63,15 +64,8 @@ define(function() {
             this.game.plugins.screenShake = this.game.plugins.add(Phaser.Plugin.ScreenShake);
 
             /* Setup audio */
-
-            this.game.shipThruster = this.game.add.audio('ship_thruster');
-            this.game.itemCollect = this.game.add.audio('item_collect');
-            this.game.gunshot = this.game.add.audio('gunshot');
-            this.game.explosion = this.game.add.audio('explosion');
             this.game.menu_background = this.game.add.audio('menu_background');
-            this.game.game_background = this.game.add.audio('game_background');
-            this.game.game_over = this.game.add.audio('game_over');
-            this.game.game_victory = this.game.add.audio('game_victory');
+            this.game.button = this.game.add.audio('button');
 
             /* Settings */
             this.game.GAME_ASSETS_LOADED = false;
@@ -162,7 +156,7 @@ define(function() {
                 damage.angle = this.rnd.integerInRange(0, 360);
                 damage.animations.play('boom');
 
-                return damage;                
+                return damage;
             }
 
             /**

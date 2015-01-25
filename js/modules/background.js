@@ -7,7 +7,7 @@ define(function() {
     'use strict';
 
     var G, bg, Background = function(obj) {
-        G = obj;
+        G = obj.game;
 
         this.init();
     };
@@ -18,9 +18,9 @@ define(function() {
         --------------------------------------------------------------------------------- */
 
         init: function() {
-            G.game.Background = G.game.add.group();
+            G.Background = G.add.group();
 
-            G.game.level.positionBackground && G.game.level.positionBackground();
+            G.level.positionBackground && G.level.positionBackground();
 
             $(document).on('update', this.update);
         },
@@ -29,7 +29,7 @@ define(function() {
         --------------------------------------------------------------------------------- */
 
         update: function() {
-            G.game.level.updateBackground && G.game.level.updateBackground();
+            G.level.updateBackground && G.level.updateBackground();
         }
     };
 

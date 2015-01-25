@@ -9,7 +9,7 @@ define(function() {
     var blinkTimer = 0;
 
     var G, _this, Powerups = function(obj) {
-        G = obj;
+        G = obj.game;
 
         _this = this;
         _this.init();
@@ -22,14 +22,14 @@ define(function() {
 
         init: function() {
             /* Generate powerups*/
-            G.game.powerups = G.game.add.group();
+            G.powerups = G.add.group();
 
-            for (var i = 0; i < G.game.powerupsObjects.length; i++) {
-                var randomPos = G.game.getRandomStartingPosition(),
-                    powerupObj = G.game.powerupsObjects[i],
-                    powerup = G.game.powerups.create(randomPos.x, randomPos.y, 'powerups');
+            for (var i = 0; i < G.powerupsObjects.length; i++) {
+                var randomPos = G.getRandomStartingPosition(),
+                    powerupObj = G.powerupsObjects[i],
+                    powerup = G.powerups.create(randomPos.x, randomPos.y, 'powerups');
 
-                G.game.physics.enable(powerup, Phaser.Physics.ARCADE);
+                G.physics.enable(powerup, Phaser.Physics.ARCADE);
 
                 powerup.index = i;
                 powerup.name = powerupObj.name;
@@ -48,28 +48,28 @@ define(function() {
         --------------------------------------------------------------------------------- */
 
         update: function() {
-            G.game.physics.arcade.overlap(G.game.ship, G.game.powerups, _this.powerupHit);
+            G.physics.arcade.overlap(G.ship, G.powerups, _this.powerupHit);
 
-            if (G.game.activePowerup !== undefined) {
-                if (G.game.activePowerup.name === 'shield') {
+            if (G.activePowerup !== undefined) {
+                if (G.activePowerup.name === 'shield') {
 
                     /* Shield powerup logic
                     --------------------------------------------------------------------------------- */
 
-                    G.game.activePowerup.x = G.game.ship.x;
-                    G.game.activePowerup.y = G.game.ship.y;
-                    G.game.activePowerup.angle += 1;
+                    G.activePowerup.x = G.ship.x;
+                    G.activePowerup.y = G.ship.y;
+                    G.activePowerup.angle += 1;
 
-                    blinkTimer += G.game.time.elapsed;
+                    blinkTimer += G.time.elapsed;
 
-                    var elapsedTime = G.game.time.now - G.game.activePowerup.creationTime;
+                    var elapsedTime = G.time.now - G.activePowerup.creationTime;
 
-                    G.game.events.onUpdatePowerupDuration.dispatch(elapsedTime);
+                    G.events.onUpdatePowerupDuration.dispatch(elapsedTime);
 
-                    if (elapsedTime >= G.game.activePowerup.duration) {
-                        G.game.activePowerup.kill();
-                        G.game.powerUpIndicator.kill();
-                        G.game.activePowerup = undefined;
+                    if (elapsedTime >= G.activePowerup.duration) {
+                        G.activePowerup.kill();
+                        G.powerUpIndicator.kill();
+                        G.activePowerup = undefined;
                     } else {
                         /**
                          * Shield blink animation
@@ -77,10 +77,10 @@ define(function() {
                          * blink animation in a 500ms interval
                          */
 
-                        if (blinkTimer >= 500 && elapsedTime > (0.6 * G.game.activePowerup.duration)) {
+                        if (blinkTimer >= 500 && elapsedTime > (0.6 * G.activePowerup.duration)) {
                             blinkTimer -= 500;
 
-                            var powerupFadeOut = G.game.add.tween(G.game.activePowerup);
+                            var powerupFadeOut = G.add.tween(G.activePowerup);
 
                             powerupFadeOut.to({
                                 alpha: 0.2
@@ -88,9 +88,9 @@ define(function() {
 
                             powerupFadeOut.onComplete.add(function() {
                                 /* Check again as during the fadeOut the shield could have been destroyed */
-                                if (G.game.activePowerup === undefined) return;
+                                if (G.activePowerup === undefined) return;
 
-                                var powerupFadeIn = G.game.add.tween(G.game.activePowerup);
+                                var powerupFadeIn = G.add.tween(G.activePowerup);
 
                                 powerupFadeIn.to({
                                     alpha: 1
@@ -102,33 +102,33 @@ define(function() {
                             powerupFadeOut.start();
                         }
                     }
-                } else if (G.game.activePowerup.name === 'bxRocket' || G.game.activePowerup.name === 'doubleBullet') {
+                } else if (G.activePowerup.name === 'bxRocket' || G.activePowerup.name === 'doubleBullet') {
 
                     /* bxRocket logic
                     --------------------------------------------------------------------------------- */
 
-                    var elapsedTime = G.game.time.now - G.game.activePowerup.creationTime;
+                    var elapsedTime = G.time.now - G.activePowerup.creationTime;
 
-                    G.game.events.onUpdatePowerupDuration.dispatch(elapsedTime);
+                    G.events.onUpdatePowerupDuration.dispatch(elapsedTime);
 
-                    if (elapsedTime >= G.game.activePowerup.duration) {
+                    if (elapsedTime >= G.activePowerup.duration) {
                         _this.killActivePowerup();
                     }
                 }
             }
 
             /* Create delay between the appearing of the powerups */
-            if (G.game.lastPowerupAt === undefined) G.game.lastPowerupAt = 0;
-            if (G.game.time.now - G.game.lastPowerupAt < G.game.POWERUPS_DELAY) return;
-            G.game.lastPowerupAt = G.game.time.now;
+            if (G.lastPowerupAt === undefined) G.lastPowerupAt = 0;
+            if (G.time.now - G.lastPowerupAt < G.POWERUPS_DELAY) return;
+            G.lastPowerupAt = G.time.now;
 
-            if (G.game.FUEL < 30) {
+            if (G.FUEL < 30) {
                 /* If the fuel is low, create a fuel powerup to give the user a chance to survive */
-                var randomPos = G.game.getRandomStartingPosition(),
-                    powerupObj = G.game.powerupsObjects[3],
-                    powerup = G.game.powerups.create(randomPos.x, randomPos.y, 'powerups');
+                var randomPos = G.getRandomStartingPosition(),
+                    powerupObj = G.powerupsObjects[3],
+                    powerup = G.powerups.create(randomPos.x, randomPos.y, 'powerups');
 
-                G.game.physics.enable(powerup, Phaser.Physics.ARCADE);
+                G.physics.enable(powerup, Phaser.Physics.ARCADE);
 
                 powerup.index = 3;
                 powerup.name = powerupObj.name;
@@ -137,8 +137,8 @@ define(function() {
                 powerup.body.immovable = true;
             } else {
                 /* Get a dead powerup from the pool */
-                var powerup = Phaser.Math.getRandom(G.game.powerups.children.filter(function(e) {
-                    if (G.game.BOSS_SHOWN) {
+                var powerup = Phaser.Math.getRandom(G.powerups.children.filter(function(e) {
+                    if (G.BOSS_SHOWN) {
                         return !e.alive && e.name !== 'destroyAll';
                     } else {
                         return !e.alive;
@@ -148,7 +148,7 @@ define(function() {
                 /* If there aren't any powerups available, do nothing */
                 if (powerup === null || powerup === undefined) return;
 
-                var randomPos = G.game.getRandomStartingPosition();
+                var randomPos = G.getRandomStartingPosition();
 
                 powerup.position.x = randomPos.x;
                 powerup.position.y = randomPos.y;
@@ -158,7 +158,7 @@ define(function() {
             }
 
             /* Let the powerup move in the direction of the current ship position */
-            G.game.physics.arcade.moveToObject(powerup, G.game.ship, G.game.rnd.integerInRange(G.game.ENEMY_MIN_SPEED, G.game.ENEMY_MAX_SPEED));
+            G.physics.arcade.moveToObject(powerup, G.ship, G.rnd.integerInRange(G.ENEMY_MIN_SPEED, G.ENEMY_MAX_SPEED));
         },
 
         /* powerupHit
@@ -166,73 +166,73 @@ define(function() {
 
         powerupHit: function(ship, powerup) {
             /* Don't do anything if full life and powerup was a life */
-            if (powerup.name === 'life' && G.game.ship.health >= G.game.MAX_LIFES) return;
+            if (powerup.name === 'life' && G.ship.health >= G.MAX_LIFES) return;
 
             /* Play audio */
-            G.game.itemCollect.play();
+            G.itemCollect.play();
 
             if (powerup.name === 'life') {
                 /* life powerup */
-                G.game.events.onAddLife.dispatch();
+                G.events.onAddLife.dispatch();
             } else if (powerup.name === 'shield') {
                 /* shield powerup */
                 _this.killActivePowerup();
 
                 // add shield and store properties from its powerupsObjects refference
-                G.game.activePowerup = G.game.add.sprite(G.game.ship.x, G.game.ship.y, 'shield');
-                G.game.activePowerup.name = powerup.name
-                G.game.activePowerup.duration = powerup.duration;
-                G.game.activePowerup.creationTime = G.game.time.now;
-                G.game.activePowerup.anchor.setTo(0.5, 0.5);
-                G.game.physics.enable(G.game.activePowerup, Phaser.Physics.ARCADE);
-                G.game.powerUpIndicator = G.game.add.image(31, 23, 'shield_single');
+                G.activePowerup = G.add.sprite(G.ship.x, G.ship.y, 'shield');
+                G.activePowerup.name = powerup.name
+                G.activePowerup.duration = powerup.duration;
+                G.activePowerup.creationTime = G.time.now;
+                G.activePowerup.anchor.setTo(0.5, 0.5);
+                G.physics.enable(G.activePowerup, Phaser.Physics.ARCADE);
+                G.powerUpIndicator = G.add.image(31, 23, 'shield_single');
             } else if (powerup.name === 'doubleBullet') {
                 /* doubleBullet powerup */
                 _this.killActivePowerup();
 
-                G.game.WEAPON = 'doubleBullet';
+                G.WEAPON = 'doubleBullet';
 
-                G.game.activePowerup = {
+                G.activePowerup = {
                     name: 'doubleBullet',
                     duration: powerup.duration,
-                    creationTime: G.game.time.now,
+                    creationTime: G.time.now,
                     kill: function() {
-                        G.game.WEAPON = 'bullet';
+                        G.WEAPON = 'bullet';
                     }
                 };
 
-                G.game.powerUpIndicator = G.game.add.image(31, 23, 'double_bullet_single');
-                G.game.ship.loadTexture('ship_multiple_guns', 0);
+                G.powerUpIndicator = G.add.image(31, 23, 'double_bullet_single');
+                G.ship.loadTexture('ship_multiple_guns', 0);
             } else if (powerup.name === 'bxRocket') {
                 /* bxRocket powerup */
                 _this.killActivePowerup();
 
-                G.game.WEAPON = 'bxRocket';
+                G.WEAPON = 'bxRocket';
 
-                G.game.activePowerup = {
+                G.activePowerup = {
                     name: 'bxRocket',
                     duration: powerup.duration,
-                    creationTime: G.game.time.now,
+                    creationTime: G.time.now,
                     kill: function() {
-                        G.game.WEAPON = 'bullet';
+                        G.WEAPON = 'bullet';
                     }
                 };
 
-                G.game.powerUpIndicator = G.game.add.image(31, 23, 'bx_rocket_single');
-                G.game.ship.loadTexture('ship_multiple_guns', 0);
+                G.powerUpIndicator = G.add.image(31, 23, 'bx_rocket_single');
+                G.ship.loadTexture('ship_multiple_guns', 0);
             } else if (powerup.name === 'fuel') {
                 /* fuel powerup */
-                G.game.FUEL = G.game.FUEL + 50 > 100 ? 100 : G.game.FUEL + 50;
+                G.FUEL = G.FUEL + 50 > 100 ? 100 : G.FUEL + 50;
             } else if (powerup.name === 'destroyAll') {
                 /* destroyAll powerup */
-                G.game.enemies.forEachAlive(function(enemy) {
-                    G.game.events.onUpdateScore.dispatch(enemy.score);
-                    G.game.showExplosion(enemy.x, enemy.y);
+                G.enemies.forEachAlive(function(enemy) {
+                    G.events.onUpdateScore.dispatch(enemy.score);
+                    G.showExplosion(enemy.x, enemy.y);
                     enemy.kill();
                 });
             }
 
-            G.game.powerupLifeIndicator.frame = 0;
+            G.powerupLifeIndicator.frame = 0;
             powerup.kill();
         },
 
@@ -240,12 +240,12 @@ define(function() {
         --------------------------------------------------------------------------------- */
 
         killActivePowerup: function() {
-            if (G.game.activePowerup) {
-                G.game.activePowerup.kill();
-                G.game.powerUpIndicator.kill();
-                G.game.activePowerup = undefined;
-                G.game.WEAPPON = 'bullet';
-                G.game.ship.loadTexture(G.game.SHIP, 0);
+            if (G.activePowerup) {
+                G.activePowerup.kill();
+                G.powerUpIndicator.kill();
+                G.activePowerup = undefined;
+                G.WEAPPON = 'bullet';
+                G.ship.loadTexture(G.SHIP, 0);
             }
         }
     };

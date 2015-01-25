@@ -8,8 +8,8 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
 
     'use strict';
 
-    var Game = function(game) {
-        this.game = game;
+    var G, Game = function(game) {
+        G = game;
     };
 
     Game.prototype = {
@@ -21,26 +21,26 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
             $('#loader').fadeIn();
 
             /* Level specific properties are set in levelMenu.js */
-            $.extend(this.game, this.game.level);
+            $.extend(G, G.level);
 
             /* General settings */
-            this.game.SCORE = 0;
-            this.game.NUMBER_OF_LIFES = 4;
-            this.game.MAX_LIFES = 4;
-            this.game.FUEL = 100;
-            this.game.DESTROYED_ASTEROIDS = 0;
-            this.game.BOSS_SHOWN = false;
-            this.game.POSSIBLE_SCORE = 0;
-            this.game.difficultyCounter = 0;
-            this.game.fuelCounter = 0;
-            this.game.GAME_OVER = false;
-            this.game.GAME_COMPLETED = false;
+            G.SCORE = 0;
+            G.NUMBER_OF_LIFES = 4;
+            G.MAX_LIFES = 4;
+            G.FUEL = 100;
+            G.DESTROYED_ASTEROIDS = 0;
+            G.BOSS_SHOWN = false;
+            G.POSSIBLE_SCORE = 0;
+            G.difficultyCounter = 0;
+            G.fuelCounter = 0;
+            G.GAME_OVER = false;
+            G.GAME_COMPLETED = false;
 
             /**
              * Powerups
              * Store different types of powerups
              */
-            this.game.powerupsObjects = [{
+            G.powerupsObjects = [{
                 name: 'life',
                 frame: 0,
                 duration: 0
@@ -70,7 +70,7 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
              * Enemies
              * Store different types of enemies
              */
-            this.game.enemiesObjects = [{
+            G.enemiesObjects = [{
                 name: 'asteorid_1',
                 score: 50,
                 lifes: 2
@@ -85,92 +85,93 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
             }];
 
             /* Ship settings */
-            this.game.SHIP = 'ship_normal' // ship_normal, ship_multiple_guns
-            this.game.SHIP_ROTATION_SPEED = 250;
-            this.game.SHIP_ACCELERATION = 350;
-            this.game.SHIP_MAX_SPEED = 250;
+            G.SHIP = 'ship_normal' // ship_normal, ship_multiple_guns
+            G.SHIP_ROTATION_SPEED = 250;
+            G.SHIP_ACCELERATION = 350;
+            G.SHIP_MAX_SPEED = 250;
 
             /* Boss settings */
-            this.game.BOSS_MAX_SPEED = 150;
+            G.BOSS_MAX_SPEED = 150;
 
             /* bullet settings */
-            this.game.BULLET_SHOT_DELAY = 200;
-            this.game.BULLET_SPEED = 500;
-            this.game.BULLET_FORCE = 1;
-            this.game.NUMBER_OF_BULLETS = 50;
+            G.BULLET_SHOT_DELAY = 200;
+            G.BULLET_SPEED = 500;
+            G.BULLET_FORCE = 1;
+            G.NUMBER_OF_BULLETS = 50;
 
             /* doubleBullet settings */
-            this.game.DOUBLE_BULLET_SHOT_DELAY = 100;
-            this.game.DOUBLE_BULLET_SPEED = 500;
-            this.game.DOUBLE_BULLET_FORCE = 1;
-            this.game.NUMBER_OF_DOUBLE_BULLETS = 50;
+            G.DOUBLE_BULLET_SHOT_DELAY = 100;
+            G.DOUBLE_BULLET_SPEED = 500;
+            G.DOUBLE_BULLET_FORCE = 1;
+            G.NUMBER_OF_DOUBLE_BULLETS = 50;
 
             /* bxRocket settings */
-            this.game.ROCKET_BX_SHOT_DELAY = 100;
-            this.game.ROCKET_BX_SPEED = 500;
-            this.game.ROCKET_BX_FORCE = 1;
-            this.game.NUMBER_OF_BX_ROCKETS = 5;
+            G.ROCKET_BX_SHOT_DELAY = 100;
+            G.ROCKET_BX_SPEED = 500;
+            G.ROCKET_BX_FORCE = 1;
+            G.NUMBER_OF_BX_ROCKETS = 5;
         },
 
         preload: function() {
-            this.game.level.preload && this.game.level.preload();
+            G.level.preload && G.level.preload();
 
             /* Load general game assets if they haven't been loaded yet */
-            if (!this.game.GAME_ASSETS_LOADED) {
+            if (!G.GAME_ASSETS_LOADED) {
 
                 /* Audio
                 --------------------------------------------------------------------------------- */
-                this.game.load.audio('ship_thruster', ['audio/ship_thruster.mp3', 'audio/ship_thruster.ogg', 'audio/ship_thruster.m4a']);
-                this.game.load.audio('gunshot', ['audio/gunshot.mp3', 'audio/gunshot.ogg', 'audio/gunshot.m4a']);
-                this.game.load.audio('item_collect', ['audio/item_collect.mp3', 'audio/item_collect.ogg', 'audio/item_collect.m4a']);
-                this.game.load.audio('explosion', ['audio/explosion.mp3', 'audio/explosion.ogg', 'audio/explosion.m4a']);
-                this.game.load.audio('game_background', ['audio/game_background.mp3', 'audio/game_background.ogg', 'audio/game_background.m4a']);
-                this.game.load.audio('game_over', ['audio/game_over.mp3', 'audio/game_over.ogg', 'audio/game_over.m4a']);
-                this.game.load.audio('game_victory', ['audio/game_victory.mp3', 'audio/game_victory.ogg', 'audio/game_victory.m4a']);
+                G.load.audio('ship_thruster', ['audio/ship_thruster.mp3', 'audio/ship_thruster.ogg', 'audio/ship_thruster.m4a']);
+                G.load.audio('gunshot', ['audio/gunshot.mp3', 'audio/gunshot.ogg', 'audio/gunshot.m4a']);
+                G.load.audio('item_collect', ['audio/item_collect.mp3', 'audio/item_collect.ogg', 'audio/item_collect.m4a']);
+                G.load.audio('explosion', ['audio/explosion.mp3', 'audio/explosion.ogg', 'audio/explosion.m4a']);
+                G.load.audio('boss', ['audio/boss.mp3', 'audio/boss.ogg', 'audio/boss.m4a']);
+                G.load.audio('game_background', ['audio/game_background.mp3', 'audio/game_background.ogg', 'audio/game_background.m4a']);
+                G.load.audio('game_over', ['audio/game_over.mp3', 'audio/game_over.ogg', 'audio/game_over.m4a']);
+                G.load.audio('game_victory', ['audio/game_victory.mp3', 'audio/game_victory.ogg', 'audio/game_victory.m4a']);
 
                 /* Graphics
                 --------------------------------------------------------------------------------- */
 
                 /* Weapons */
-                this.game.load.image('bullet', 'dist/images/weapons/bullet.png');
-                this.game.load.image('bullet_double', 'dist/images/weapons/bullet_double.png');
-                this.game.load.image('double_bullet_single', 'dist/images/weapons/double_bullet_single.png');
-                this.game.load.image('bx_rocket', 'dist/images/weapons/bx_rocket.png');
-                this.game.load.image('bx_rocket_single', 'dist/images/weapons/bx_rocket_single.png');
+                G.load.image('bullet', 'dist/images/weapons/bullet.png');
+                G.load.image('bullet_double', 'dist/images/weapons/bullet_double.png');
+                G.load.image('double_bullet_single', 'dist/images/weapons/double_bullet_single.png');
+                G.load.image('bx_rocket', 'dist/images/weapons/bx_rocket.png');
+                G.load.image('bx_rocket_single', 'dist/images/weapons/bx_rocket_single.png');
 
                 /* Powerups */
-                this.game.load.image('shield', 'dist/images/powerups/shield.png');
-                this.game.load.image('shield_single', 'dist/images/powerups/shield_single.png');
-                this.game.load.spritesheet('powerups', 'dist/images/powerups/powerups.png', 100, 100);
-                this.game.load.spritesheet('powerup_life', 'dist/images/powerups/points_powerup_lifes_powerup_indicator.png', 124, 124);
+                G.load.image('shield', 'dist/images/powerups/shield.png');
+                G.load.image('shield_single', 'dist/images/powerups/shield_single.png');
+                G.load.spritesheet('powerups', 'dist/images/powerups/powerups.png', 100, 100);
+                G.load.spritesheet('powerup_life', 'dist/images/powerups/points_powerup_lifes_powerup_indicator.png', 124, 124);
 
                 /* Enemies */
-                this.game.load.image('enemy_unit', 'dist/images/enemies/enemy_unit.png');
-                this.game.load.spritesheet('asteorid_1', 'dist/images/enemies/asteroid_1.png', 100, 44);
-                this.game.load.spritesheet('asteorid_2', 'dist/images/enemies/asteroid_2.png', 170, 140);
-                this.game.load.spritesheet('asteorid_3', 'dist/images/enemies/asteroid_3.png', 90, 77);
+                G.load.image('enemy_unit', 'dist/images/enemies/enemy_unit.png');
+                G.load.spritesheet('asteorid_1', 'dist/images/enemies/asteroid_1.png', 100, 44);
+                G.load.spritesheet('asteorid_2', 'dist/images/enemies/asteroid_2.png', 170, 140);
+                G.load.spritesheet('asteorid_3', 'dist/images/enemies/asteroid_3.png', 90, 77);
 
                 /* HUD */
-                this.game.load.image('points_powerup_lifes', 'dist/images/hud/points_powerup_lifes.png');
-                this.game.load.image('life', 'dist/images/hud/life_indicator.png', 24, 24);
-                this.game.load.image('control_field', 'dist/images/hud/control_field.png');
-                this.game.load.image('control_fuel_icon', 'dist/images/hud/control_fuel_icon.png');
-                this.game.load.image('control_stick', 'dist/images/hud/control_stick.png');
-                this.game.load.image('arrow_up', 'dist/images/hud/button_arrow_up.png');
-                this.game.load.image('arrow_right', 'dist/images/hud/button_arrow_right.png');
-                this.game.load.image('arrow_down', 'dist/images/hud/button_arrow_down.png');
-                this.game.load.image('arrow_left', 'dist/images/hud/button_arrow_left.png');
-                this.game.load.image('button', 'dist/images/hud/button.png');
-                this.game.load.spritesheet('ship_normal', 'dist/images/spaceships/spaceship_normal.png', 90, 76);
-                this.game.load.spritesheet('ship_multiple_guns', 'dist/images/spaceships/spaceship_normal_multiple_gun.png', 90, 76);
-                this.game.load.spritesheet('explosion', 'dist/images/misc/explosion.png', 90, 90);
-                this.game.load.spritesheet('damage', 'dist/images/misc/damage.png', 90, 90);
-                this.game.load.spritesheet('pause', 'dist/images/hud/pause_button.png', 142, 157);
-                this.game.load.spritesheet('shooting_button', 'dist/images/hud/shooting_button.png', 190, 199);
-                this.game.load.spritesheet('control_fuel', 'dist/images/hud/control_fuel_indicator.png', 99, 99);
-                this.game.load.spritesheet('summary_icons', 'dist/images/hud/summary_icons.png', 60, 60);
+                G.load.image('control_stick', 'dist/images/hud/control_stick.png');
+                G.load.image('arrow_up', 'dist/images/hud/button_arrow_up.png');
+                G.load.image('arrow_right', 'dist/images/hud/button_arrow_right.png');
+                G.load.image('arrow_down', 'dist/images/hud/button_arrow_down.png');
+                G.load.image('arrow_left', 'dist/images/hud/button_arrow_left.png');
+                G.load.image('button', 'dist/images/hud/button.png');
+                G.load.spritesheet('control_fuel_icon', 'dist/images/hud/control_fuel_icon.png', 60, 60);
+                G.load.spritesheet('control_field', 'dist/images/hud/control_field.png', 200, 200);
+                G.load.spritesheet('life', 'dist/images/hud/life_indicator.png', 24, 24);                
+                G.load.spritesheet('points_powerup_lifes', 'dist/images/hud/points_powerup_lifes.png', 444, 179);                
+                G.load.spritesheet('ship_normal', 'dist/images/spaceships/spaceship_normal.png', 90, 76);
+                G.load.spritesheet('ship_multiple_guns', 'dist/images/spaceships/spaceship_normal_multiple_gun.png', 90, 76);
+                G.load.spritesheet('explosion', 'dist/images/misc/explosion.png', 90, 90);
+                G.load.spritesheet('damage', 'dist/images/misc/damage.png', 90, 90);
+                G.load.spritesheet('pause', 'dist/images/hud/pause_button.png', 142, 157);
+                G.load.spritesheet('shooting_button', 'dist/images/hud/shooting_button.png', 190, 199);
+                G.load.spritesheet('control_fuel', 'dist/images/hud/control_fuel_indicator.png', 99, 99);
+                G.load.spritesheet('summary_icons', 'dist/images/hud/summary_icons.png', 60, 60);
 
-                this.game.GAME_ASSETS_LOADED = true;
+                G.GAME_ASSETS_LOADED = true;
             }
         },
 
@@ -178,33 +179,34 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
         --------------------------------------------------------------------------------- */
 
         create: function() {
-            var G = this;
+            /* Setup audio */
+            G.shipThruster = G.add.audio('ship_thruster');
+            G.itemCollect = G.add.audio('item_collect');
+            G.gunshot = G.add.audio('gunshot');
+            G.explosion = G.add.audio('explosion');
+            G.boss_background = G.add.audio('boss');
+            G.game_background = G.add.audio('game_background');
+            G.game_over = G.add.audio('game_over');
+            G.game_victory = G.add.audio('game_victory');
 
             /* Pause game when window loses focus */
             $(window).on('mouseleave', function() {
-                if (!G.game.isPaused) G.game.paused = true;
+                if (!G.isPaused) G.paused = true;
             }).on('mouseenter', function() {
-                if (!G.game.isPaused) G.game.paused = false;
+                if (!G.isPaused) G.paused = false;
             });
 
-            this.game.menu_background.stop();
-            this.game.game_background.play('', 0, 1, true);
+            G.menu_background.stop();
+            G.game_background.play('', 0, 1, true);
 
             /* Store game start time */
-            this.game.gameStartTime = this.game.time.now;
+            G.gameStartTime = G.time.now;
 
             /* Enable physics */
-            this.game.physics.startSystem(Phaser.Physics.ARCADE);
+            G.physics.startSystem(Phaser.Physics.ARCADE);
 
             /* Setup events object */
-            if (!this.game.events) this.game.events = {};
-
-            /* Go fullscreen on mobile devices */
-            if (!this.game.device.desktop) {
-                this.game.input.onDown.add(function() {
-                    this.game.scale.startFullScreen(false);
-                }, this);
-            }
+            if (!G.events) G.events = {};
 
             /* Setup background */
             new Background(this);
@@ -226,9 +228,9 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
 
             /* DEBUG Show fps*/
             if (DEBUG) {
-                this.game.time.advancedTiming = true;
-                this.game.fpsText = this.game.add.text(
-                    this.game.width - 80, 20, '', {
+                G.time.advancedTiming = true;
+                G.fpsText = G.add.text(
+                    G.width - 220, 20, '', {
                         font: '16px Arial',
                         fill: '#ffffff'
                     }
@@ -243,21 +245,21 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
 
         update: function() {
             /* If difficulty change time has been reached, increase difficulty */
-            if (this.game.GameElapsedTime > this.game.DIFFICULTY_CHANGE_TIME + (this.game.DIFFICULTY_CHANGE_TIME * this.game.difficultyCounter)) {
-                this.game.ENEMY_DELAY -= 40;
-                this.game.POWERUPS_DELAY -= 20;
-                this.game.ENEMY_MAX_SPEED += 10;
-                this.game.difficultyCounter++;
+            if (G.GameElapsedTime > G.DIFFICULTY_CHANGE_TIME + (G.DIFFICULTY_CHANGE_TIME * G.difficultyCounter)) {
+                G.ENEMY_DELAY -= 40;
+                G.POWERUPS_DELAY -= 20;
+                G.ENEMY_MAX_SPEED += 10;
+                G.difficultyCounter++;
             }
 
             /* Trigger update event for modules */
-            if (!this.game.GAME_OVER && !this.game.GAME_COMPLETED) {
+            if (!G.GAME_OVER && !G.GAME_COMPLETED) {
                 $(document).trigger('update');
             }
 
             /* DEBUG update fps */
-            if (DEBUG && this.game.time.fps !== 0) {
-                this.game.fpsText.setText(this.game.time.fps + ' FPS');
+            if (DEBUG && G.time.fps !== 0) {
+                G.fpsText.setText(G.time.fps + ' FPS');
             }
         }
 

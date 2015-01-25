@@ -40,9 +40,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
+    grunt.loadNpmTasks('grunt-newer');
 
-    /* What happens when we "grunt" the terminal */
+    /* Setup grunt tasks */
     grunt.registerTask('default', ['requirejs', 'cssmin', 'imagemin']);
     grunt.registerTask('js', ['requirejs']);
-    grunt.registerTask('img', ['imagemin']);
+    grunt.registerTask('img', ['newer:imagemin']);
 };

@@ -32,7 +32,10 @@ html, body {
     background-color: #000;
 }
 
-body { font-family: 'neuropol_xregular', Arial, sans-serif; }
+body { 
+    overflow: hidden;
+    font-family: 'neuropol_xregular', Arial, sans-serif; 
+}
 
 #game {
     width: 100%;

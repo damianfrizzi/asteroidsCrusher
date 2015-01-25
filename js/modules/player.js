@@ -9,7 +9,7 @@ define(function() {
     'use strict';
 
     var G, _this, Player = function(obj) {
-        G = obj;
+        G = obj.game;
 
         _this = this;
         _this.init();
@@ -33,33 +33,33 @@ define(function() {
         --------------------------------------------------------------------------------- */
 
         update: function() {
-            if (G.game.ship.x > G.game.width) G.game.ship.x = 0;
-            if (G.game.ship.x < 0) G.game.ship.x = G.game.width;
-            if (G.game.ship.y > G.game.height) G.game.ship.y = 0;
-            if (G.game.ship.y < 0) G.game.ship.y = G.game.height;
+            if (G.ship.x > G.width) G.ship.x = 0;
+            if (G.ship.x < 0) G.ship.x = G.width;
+            if (G.ship.y > G.height) G.ship.y = 0;
+            if (G.ship.y < 0) G.ship.y = G.height;
 
             if (!Modernizr.touch) {
-                if (G.game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || G.game.arrowLeftPressed) {
-                    G.game.ship.body.angularVelocity = -G.game.SHIP_ROTATION_SPEED;
-                } else if (G.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || G.game.arrowRightPressed) {
-                    G.game.ship.body.angularVelocity = G.game.SHIP_ROTATION_SPEED;
+                if (G.input.keyboard.isDown(Phaser.Keyboard.LEFT) || G.arrowLeftPressed) {
+                    G.ship.body.angularVelocity = -G.SHIP_ROTATION_SPEED;
+                } else if (G.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || G.arrowRightPressed) {
+                    G.ship.body.angularVelocity = G.SHIP_ROTATION_SPEED;
                 } else {
-                    G.game.ship.body.angularVelocity = 0;
+                    G.ship.body.angularVelocity = 0;
                 }
 
-                if (G.game.input.keyboard.isDown(Phaser.Keyboard.UP) || G.game.arrowUpPressed) {
-                    G.game.ship.body.acceleration.x = Math.cos(G.game.ship.rotation) * G.game.SHIP_ACCELERATION;
-                    G.game.ship.body.acceleration.y = Math.sin(G.game.ship.rotation) * G.game.SHIP_ACCELERATION;
-                    G.game.ship.frame = 1;
-                    !G.game.shipThruster.isPlaying && G.game.shipThruster.play('', 0, 1, false);
+                if (G.input.keyboard.isDown(Phaser.Keyboard.UP) || G.arrowUpPressed) {
+                    G.ship.body.acceleration.x = Math.cos(G.ship.rotation) * G.SHIP_ACCELERATION;
+                    G.ship.body.acceleration.y = Math.sin(G.ship.rotation) * G.SHIP_ACCELERATION;
+                    G.ship.frame = 1;
+                    !G.shipThruster.isPlaying && G.shipThruster.play('', 0, 1, false);
                 } else {
-                    G.game.ship.body.acceleration.setTo(0, 0);
-                    G.game.ship.frame = 0;
-                    G.game.shipThruster.stop();
+                    G.ship.body.acceleration.setTo(0, 0);
+                    G.ship.frame = 0;
+                    G.shipThruster.stop();
                 }
             }
 
-            if (G.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) || G.game.shootingPressed) {
+            if (G.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) || G.shootingPressed) {
                 _this.shootBullet();
             }
         },
@@ -68,12 +68,12 @@ define(function() {
         --------------------------------------------------------------------------------- */
 
         setupBullets: function() {
-            G.game.bulletsPool = G.game.add.group();
+            G.bulletsPool = G.add.group();
 
-            for (var i = 0; i < G.game.NUMBER_OF_BULLETS; i++) {
-                var bullet = G.game.add.sprite(0, 0, 'bullet');
-                G.game.bulletsPool.add(bullet);
-                G.game.physics.enable(bullet, Phaser.Physics.ARCADE);
+            for (var i = 0; i < G.NUMBER_OF_BULLETS; i++) {
+                var bullet = G.add.sprite(0, 0, 'bullet');
+                G.bulletsPool.add(bullet);
+                G.physics.enable(bullet, Phaser.Physics.ARCADE);
                 bullet.anchor.setTo(0.5, 0.5);
                 bullet.kill();
             }
@@ -83,12 +83,12 @@ define(function() {
         --------------------------------------------------------------------------------- */
 
         setupDoubleBullets: function() {
-            G.game.doubleBulletsPool = G.game.add.group();
+            G.doubleBulletsPool = G.add.group();
 
-            for (var i = 0; i < G.game.NUMBER_OF_DOUBLE_BULLETS; i++) {
-                var doubleBullet = G.game.add.sprite(0, 0, 'bullet_double');
-                G.game.doubleBulletsPool.add(doubleBullet);
-                G.game.physics.enable(doubleBullet, Phaser.Physics.ARCADE);
+            for (var i = 0; i < G.NUMBER_OF_DOUBLE_BULLETS; i++) {
+                var doubleBullet = G.add.sprite(0, 0, 'bullet_double');
+                G.doubleBulletsPool.add(doubleBullet);
+                G.physics.enable(doubleBullet, Phaser.Physics.ARCADE);
                 doubleBullet.anchor.setTo(0.5, 0.5);
                 doubleBullet.kill();
             }
@@ -98,12 +98,12 @@ define(function() {
         --------------------------------------------------------------------------------- */
 
         setupBXRockets: function() {
-            G.game.bxRocketsPool = G.game.add.group();
+            G.bxRocketsPool = G.add.group();
 
-            for (var i = 0; i < G.game.NUMBER_OF_BX_ROCKETS; i++) {
-                var bxRocket = G.game.add.sprite(0, 0, 'bx_rocket');
-                G.game.bxRocketsPool.add(bxRocket);
-                G.game.physics.enable(bxRocket, Phaser.Physics.ARCADE);
+            for (var i = 0; i < G.NUMBER_OF_BX_ROCKETS; i++) {
+                var bxRocket = G.add.sprite(0, 0, 'bx_rocket');
+                G.bxRocketsPool.add(bxRocket);
+                G.physics.enable(bxRocket, Phaser.Physics.ARCADE);
                 bxRocket.anchor.setTo(0.5, 0.5);
                 bxRocket.kill();
             }
@@ -113,16 +113,16 @@ define(function() {
         --------------------------------------------------------------------------------- */
 
         setupShip: function() {
-            G.game.ship = G.game.add.sprite(G.game.world.centerX, G.game.world.centerY, G.game.SHIP);
-            G.game.ship.anchor.setTo(0.5, 0.5);
-            G.game.ship.angle = -90;
-            G.game.ship.health = G.game.NUMBER_OF_LIFES;
+            G.ship = G.add.sprite(G.world.centerX, G.world.centerY, G.SHIP);
+            G.ship.anchor.setTo(0.5, 0.5);
+            G.ship.angle = -90;
+            G.ship.health = G.NUMBER_OF_LIFES;
 
-            G.game.physics.enable(G.game.ship, Phaser.Physics.ARCADE);
-            G.game.ship.body.maxVelocity.setTo(G.game.SHIP_MAX_SPEED, G.game.SHIP_MAX_SPEED);
+            G.physics.enable(G.ship, Phaser.Physics.ARCADE);
+            G.ship.body.maxVelocity.setTo(G.SHIP_MAX_SPEED, G.SHIP_MAX_SPEED);
 
-            G.game.ship.events.onRevived.add(function(ship) {
-                ship.position.setTo(G.game.width / 2, G.game.height / 2);
+            G.ship.events.onRevived.add(function(ship) {
+                ship.position.setTo(G.width / 2, G.height / 2);
                 ship.rotation = 0;
                 ship.angle = -90;
                 ship.body.velocity.x = 0;
@@ -130,7 +130,7 @@ define(function() {
             }, this);
 
             // capture certain keys to prevent their default actions in the browser.
-            G.game.input.keyboard.addKeyCapture([
+            G.input.keyboard.addKeyCapture([
                 Phaser.Keyboard.LEFT,
                 Phaser.Keyboard.RIGHT,
                 Phaser.Keyboard.UP,
@@ -145,31 +145,31 @@ define(function() {
             var delay, pool, speed, force;
 
             /* Set properties depending on active weapon */
-            switch (G.game.WEAPON) {
+            switch (G.WEAPON) {
                 case 'bxRocket':
-                    delay = G.game.ROCKET_BX_SHOT_DELAY;
-                    pool = G.game.bxRocketsPool;
-                    speed = G.game.ROCKET_BX_SPEED;
-                    force = G.game.ROCKET_BX_FORCE;
+                    delay = G.ROCKET_BX_SHOT_DELAY;
+                    pool = G.bxRocketsPool;
+                    speed = G.ROCKET_BX_SPEED;
+                    force = G.ROCKET_BX_FORCE;
                     break;
                 case 'doubleBullet':
-                    delay = G.game.DOUBLE_BULLET_SHOT_DELAY;
-                    pool = G.game.doubleBulletsPool;
-                    speed = G.game.DOUBLE_BULLET_SPEED;
-                    force = G.game.DOUBLE_BULLET_FORCE
+                    delay = G.DOUBLE_BULLET_SHOT_DELAY;
+                    pool = G.doubleBulletsPool;
+                    speed = G.DOUBLE_BULLET_SPEED;
+                    force = G.DOUBLE_BULLET_FORCE
                     break;
                 default:
-                    delay = G.game.BULLET_SHOT_DELAY;
-                    pool = G.game.bulletsPool;
-                    speed = G.game.BULLET_SPEED;
-                    force = G.game.BULLET_FORCE
+                    delay = G.BULLET_SHOT_DELAY;
+                    pool = G.bulletsPool;
+                    speed = G.BULLET_SPEED;
+                    force = G.BULLET_FORCE
                     break;
             }
 
             /* Enforce a delay between shots */
-            if (G.game.lastBulletShotAt === undefined) G.game.lastBulletShotAt = 0;
-            if (G.game.time.now - G.game.lastBulletShotAt < delay) return;
-            G.game.lastBulletShotAt = G.game.time.now;
+            if (G.lastBulletShotAt === undefined) G.lastBulletShotAt = 0;
+            if (G.time.now - G.lastBulletShotAt < delay) return;
+            G.lastBulletShotAt = G.time.now;
 
             var shot = pool.getFirstDead();
 
@@ -184,15 +184,15 @@ define(function() {
             shot.outOfBoundsKill = true;
 
             /* Set the shot position to the ship position */
-            shot.reset(G.game.ship.x, G.game.ship.y);
-            shot.rotation = G.game.ship.rotation;
+            shot.reset(G.ship.x, G.ship.y);
+            shot.rotation = G.ship.rotation;
 
             /* Shoot it in the right direction */
             shot.body.velocity.x = Math.cos(shot.rotation) * speed;
             shot.body.velocity.y = Math.sin(shot.rotation) * speed;
 
             /* Play audio */
-            G.game.gunshot.play('', 0, 0.5);
+            G.gunshot.play('', 0, 0.5);
         }
 
     };

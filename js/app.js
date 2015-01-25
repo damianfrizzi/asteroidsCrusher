@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------------------------
 App.js
 
-Configuration and initialisation happen here
+Configuration and initialisation
 --------------------------------------------------------------------------------- */        
     
 ;(function() {
@@ -31,11 +31,11 @@ Configuration and initialisation happen here
             'level6': 'levels/level6',
 
             /* Vendor */
-            'screen_shake': 'vendor/phaser.screen_shake',
-            'joystick': 'vendor/touchscreen_joystick',
-            'jquery': '../bower_components/jquery/dist/jquery',
-            'Modernizr': '../bower_components/modernizr/modernizr',
-            'phaser': '../bower_components/phaser-official/build/phaser.min'
+            'screen_shake': '../vendor/phaser.screen_shake',
+            'joystick': '../vendor/touchscreen_joystick',
+            'jquery': '../vendor/jquery/dist/jquery',
+            'Modernizr': '../vendor/modernizr/modernizr',
+            'phaser': '../vendor/phaser-official/build/phaser.min'
         },
 
         shim: {
@@ -61,7 +61,7 @@ Configuration and initialisation happen here
 
         $(function() {
             require(['phaser', 'boot', 'mainMenu', 'levelMenu', 'game', 'screen_shake'], function(Phaser, Boot, MainMenu, LevelMenu, Game) {
-                /* Initialize game stage */
+                /* Initialize game */
                 var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'game');
 
                 /* Add different game states */

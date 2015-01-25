@@ -30,7 +30,7 @@ define(['level1', 'level2', 'level3', 'level4', 'level5', 'level6'], function(Le
         create: function() {
             $(document).off('update');
 
-            this.game.game_background.stop();
+            this.game.game_background && this.game.game_background.stop();
             !this.game.menu_background.isPlaying && this.game.menu_background.play('', 0, 1, true);
 
             /* Create levelMenu */
@@ -73,6 +73,8 @@ define(['level1', 'level2', 'level3', 'level4', 'level5', 'level6'], function(Le
                      * On click/touch save selected level and start game state
                      */
                     var button = _this.game.add.button(width, height, 'select_frame', function(btn) {
+                        _this.game.button.play('', 0, 0.5, false);
+
                         switch (btn.index) {
                             case 1:
                                 _this.game.level = new Level1(_this);

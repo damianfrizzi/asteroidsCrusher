@@ -5,6 +5,7 @@ Configuration and initialisation
 --------------------------------------------------------------------------------- */
 
 requirejs.config({
+    urlArgs: "bust=" + (new Date()).getTime(),
     paths: {
         /* Modules */
         'game': 'modules/game',

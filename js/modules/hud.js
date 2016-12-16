@@ -91,7 +91,7 @@ define(['player'], function(Player) {
             G.scoreMenu.add(G.powerupTextPercentage);
 
             // setup powerup square circle life indicator
-            G.powerupLifeIndicator = G.add.sprite(29, 25, 'powerup_life');
+            G.powerupLifeIndicator = G.add.sprite(29, 25, 'powerup_life', 34);
             G.scoreMenu.add(G.powerupLifeIndicator);
 
             // show hearts representing the lifes
@@ -221,7 +221,7 @@ define(['player'], function(Player) {
                 fill: '#00fcf1'
             }, G.pauseMenu);
 
-            // restart button  
+            // restart button
             G.restartButton = G.pauseMenu.create(w + 114, h + 480, 'button');
             G.add.text(w + 162, h + 488, 'RESTART', {
                 font: '18px "neuropol_xregular", Arial, sans-serif',

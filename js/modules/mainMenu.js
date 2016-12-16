@@ -25,7 +25,9 @@ define(function() {
         --------------------------------------------------------------------------------- */
 
         create: function() {
-            $('#loader').fadeOut();
+            setTimeout(function() {
+                $('#loader').fadeOut();
+            }, 2000);
 
             !this.game.menu_background.isPlaying && this.game.menu_background.play('', 0, 1, true);
 

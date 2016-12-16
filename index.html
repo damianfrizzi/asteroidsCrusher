@@ -9,15 +9,19 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="viewport" content=" width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+    <link rel="shortcut icon" type="image/png" href="dist/images/gui/icon16.png"/>
+    <link rel="icon" sizes="192x192" href="dist/images/gui/icon192.png">
     <link rel="stylesheet" type="text/css" href="dist/main.min.css">
 </head>
 
 <body>
 
     <div id="loader">
-        <div class="ball-outer"></div>
-        <div class="ball-inner"></div>
-        <div class="text">LOADING</div>
+        <div id="loader-content">
+            <img src="dist/images/gui/logo.png" width="300" height="270" alt="Asteroids Crusher Logo">
+            <div class="ball-outer"></div>
+            <div class="ball-inner"></div>
+        </div>
     </div>
 
     <div id="game"></div>
@@ -26,7 +30,7 @@
         <img id="joystick" src="dist/images/hud/control_stick.png" alt="Touch control">
     </div>
 
-    <script data-main="js/app" src="dist/require.min.js"></script>
+    <script data-main="dist/built" src="dist/require.min.js"></script>
 
 </body>
 

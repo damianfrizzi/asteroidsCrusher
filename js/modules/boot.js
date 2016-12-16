@@ -20,7 +20,7 @@ define(function() {
 
         init: function() {
             this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            this.game.scale.setMinMax(0, 0, 1024, 768);
+            // this.game.scale.setMinMax(0, 0, 1024, 768);
             this.game.scale.pageAlignVertically = true;
             this.game.scale.pageAlignHorizontally = true;
         },

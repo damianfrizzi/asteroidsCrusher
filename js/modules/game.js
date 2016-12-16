@@ -160,8 +160,8 @@ define(['background', 'player', 'enemies', 'powerups', 'hud', 'mobileControls'],
                 G.load.image('button', 'dist/images/hud/button.png');
                 G.load.spritesheet('control_fuel_icon', 'dist/images/hud/control_fuel_icon.png', 60, 60);
                 G.load.spritesheet('control_field', 'dist/images/hud/control_field.png', 200, 200);
-                G.load.spritesheet('life', 'dist/images/hud/life_indicator.png', 24, 24);                
-                G.load.spritesheet('points_powerup_lifes', 'dist/images/hud/points_powerup_lifes.png', 444, 179);                
+                G.load.spritesheet('life', 'dist/images/hud/life_indicator.png', 24, 24);
+                G.load.spritesheet('points_powerup_lifes', 'dist/images/hud/points_powerup_lifes.png', 444, 179);
                 G.load.spritesheet('ship_normal', 'dist/images/spaceships/spaceship_normal.png', 90, 76);
                 G.load.spritesheet('ship_multiple_guns', 'dist/images/spaceships/spaceship_normal_multiple_gun.png', 90, 76);
                 G.load.spritesheet('explosion', 'dist/images/misc/explosion.png', 90, 90);

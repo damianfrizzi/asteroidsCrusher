@@ -292,6 +292,7 @@ define(['hud'], function(Hud) {
 
             if (boss.health <= 0) {
                 G.showExplosion(boss.x, boss.y);
+                G.boss_background.stop();
                 boss.kill();
 
                 G.BOSS_SHOWN = false;

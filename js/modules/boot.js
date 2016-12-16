@@ -157,7 +157,7 @@ define(function() {
                 damage.animations.play('boom');
 
                 return damage;
-            }
+            };
 
             /**
              * Show explosion

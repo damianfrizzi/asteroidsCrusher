@@ -1,10 +1,9 @@
 /* ------------------------------------------------------------------------------
 Game CSS
---------------------------------------------------------------------------------- */        
+--------------------------------------------------------------------------------- */
 
 /* font declaration
---------------------------------------------------------------------------------- */              
-
+--------------------------------------------------------------------------------- */
 @font-face {
     font-family: 'neuropol_xregular';
     src: url('../fonts/neuropol_x_rg-webfont.eot');
@@ -22,8 +21,7 @@ Game CSS
 }
 
 /* General stuff
---------------------------------------------------------------------------------- */              
-
+--------------------------------------------------------------------------------- */
 html, body {
     width: 100%;
     height: 100%;
@@ -32,9 +30,9 @@ html, body {
     background-color: #000;
 }
 
-body { 
+body {
     overflow: hidden;
-    font-family: 'neuropol_xregular', Arial, sans-serif; 
+    font-family: 'neuropol_xregular', Arial, sans-serif;
 }
 
 #game {
@@ -42,9 +40,9 @@ body {
     height: 100%;
 }
 
-/* Joystick for touch views
---------------------------------------------------------------------------------- */              
 
+/* Joystick for touch views
+--------------------------------------------------------------------------------- */
 #joystick-wrapper {
     display: none;
     position: absolute;
@@ -52,12 +50,12 @@ body {
     bottom: 92px;
     border-radius: 50%;
     width: 50px;
-    height: 50px;    
+    height: 50px;
 }
+
 
 /* Loading animation
 --------------------------------------------------------------------------------- */
-
 #loader {
     position: absolute;
     top: 50%;
@@ -75,12 +73,12 @@ body {
 
 .ball-outer, .ball-inner {
     opacity: .9;
-    margin: 0 auto;    
+    margin: 0 auto;
     background-color: #000;
     border: 5px solid rgba(2, 204, 209, 0.9);
     border-top: 5px solid rgba(0, 0, 0, 0);
     border-left: 5px solid rgba(0, 0, 0, 0);
-    border-radius: 50px;    
+    border-radius: 50px;
 }
 
 .ball-outer {

@@ -2,60 +2,58 @@
 App.js
 
 Configuration and initialisation
---------------------------------------------------------------------------------- */        
-    
-;(function() {
+--------------------------------------------------------------------------------- */
+
+requirejs.config({
+    paths: {
+        /* Modules */
+        'game': 'modules/game',
+        'boot': 'modules/boot',
+        'mainMenu': 'modules/mainMenu',
+        'levelMenu': 'modules/levelMenu',
+        'mobileControls': 'modules/mobileControls',
+        'background': 'modules/background',
+        'hud': 'modules/hud',
+        'player': 'modules/player',
+        'enemies': 'modules/enemies',
+        'powerups': 'modules/powerups',
+
+        /* Levels */
+        'level1': 'levels/level1',
+        'level2': 'levels/level2',
+        'level3': 'levels/level3',
+        'level4': 'levels/level4',
+        'level5': 'levels/level5',
+        'level6': 'levels/level6',
+
+        /* Vendor */
+        'screen_shake': '../vendor/phaser.screen_shake',
+        'joystick': '../vendor/touchscreen_joystick',
+        'jquery': '../vendor/jquery/dist/jquery.min',
+        'Modernizr': '../vendor/modernizr/modernizr',
+        'phaser': '../vendor/phaser-official/build/phaser.min'
+    },
+
+    shim: {
+        '$': 'jquery',
+        'phaser': {
+            exports: 'Phaser'
+        },
+        'screen_shake': {
+            deps: ['phaser']
+        }
+    }
+});
+
+(function() {
 
     'use strict';
-
-    require.config({
-        paths: {
-            /* Modules */
-            'game': 'modules/game',
-            'boot': 'modules/boot',
-            'mainMenu': 'modules/mainMenu',
-            'levelMenu': 'modules/levelMenu',
-            'mobileControls': 'modules/mobileControls',
-            'background': 'modules/background',
-            'hud': 'modules/hud',
-            'player': 'modules/player',
-            'enemies': 'modules/enemies',
-            'powerups': 'modules/powerups',
-
-            /* Levels */
-            'level1': 'levels/level1',
-            'level2': 'levels/level2',
-            'level3': 'levels/level3',
-            'level4': 'levels/level4',
-            'level5': 'levels/level5',
-            'level6': 'levels/level6',
-
-            /* Vendor */
-            'screen_shake': '../vendor/phaser.screen_shake',
-            'joystick': '../vendor/touchscreen_joystick',
-            'jquery': '../vendor/jquery/dist/jquery',
-            'Modernizr': '../vendor/modernizr/modernizr',
-            'phaser': '../vendor/phaser-official/build/phaser.min'
-        },
-
-        shim: {
-            'phaser': {
-                exports: 'Phaser'
-            },
-            'screen_shake': {
-                deps: ['phaser']
-            }
-        }
-
-        /* Remove on production to guarantee caching */
-        // urlArgs: 'bust=' + (new Date()).getTime()
-    });
 
     require(['jquery', 'Modernizr'], function($) {
         /* Little helper */
         window.log = function(input) {
-            console.log(input);
-        }
+            window.console.log(input);
+        };
 
         window.DEBUG = true;
 

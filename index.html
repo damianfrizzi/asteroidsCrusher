@@ -7,25 +7,9 @@
     <title>Asteroids Crusher</title>
     <meta name="description" content="">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes" /> 
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="viewport" content=" width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
     <link rel="stylesheet" type="text/css" href="dist/main.min.css">
-    <script type="text/javascript">
-    WebFontConfig = {
-        google: {
-            families: ['Roboto:400,500,700:latin']
-        }
-    };
-    (function() {
-        var wf = document.createElement('script');
-        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-        wf.type = 'text/javascript';
-        wf.async = 'true';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(wf, s);
-    })();
-    </script>
 </head>
 
 <body>
@@ -42,7 +26,7 @@
         <img id="joystick" src="dist/images/hud/control_stick.png" alt="Touch control">
     </div>
 
-    <script data-main="dist/built" src="dist/require.min.js"></script>
+    <script data-main="js/app" src="dist/require.min.js"></script>
 
 </body>
 
